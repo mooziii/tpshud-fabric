@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "tpshud",
+  "version": "${version}",
+  "name": "TPS Hud",
+  "description": "A mod for fabric that displays the servers tps.",
+  "authors": [
+    "mooziii"
+  ],
+  "contact": {
+    "sources": "https://github.com/mooziii/tpshud-fabric"
+  },
+  "license": "MIT",
+  "icon": "assets/tpshud/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "me.obsilabor.tpshud.TpsHud"
+    ],
+    "modmenu": [
+      "me.obsilabor.tpshud.ModMenuApiImpl"
+    ]
+  },
+  "mixins": [
+    "tpshud.mixins.json"
+  ],
+  "depends": {
+    "fabric-language-kotlin": "*",
+    "fabricloader": ">=0.13.3",
+    "minecraft": ">=1.18.1",
+    "cloth-config": ">=6.2.57"
+  },
+  "recommends": {
+    "modmenu": ">=3.1.0"
+  }
+}

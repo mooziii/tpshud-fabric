@@ -1,0 +1,11 @@
+{
+  "title.tpshud.config": "TPS-Hud Config",
+  "category.tpshud.general": "General",
+  "option.tpshud.enabled": "Enabled",
+  "option.tpshud.scale": "Scale",
+  "option.tpshud.textcolor": "Text Color",
+  "option.tpshud.valuetextcolor": "Value Text Color",
+  "option.tpshud.backgroundcolor": "Background Color",
+  "option.tpshud.backgroundopacity": "Background Opacity",
+  "option.tpshud.backgroundenabled": "Background Enabled"
+}

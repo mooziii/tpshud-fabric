@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "me.obsilabor.tpshud.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "ClientConnectionMixin",
+    "ClientPlayNetworkHandlerMixin",
+    "InGameHudMixin",
+    "ScreenMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
