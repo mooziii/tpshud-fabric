@@ -12,12 +12,16 @@ import java.io.File
 
 object ClothConfigManager {
 
+    fun saveConfigToFile() {
+        configFile.writeText(json.encodeToString(config))
+    }
+
     fun buildScreen(): Screen {
         val builder = ConfigBuilder.create()
             .setParentScreen(minecraft.currentScreen)
             .setTitle(TranslatableText("title.tpshud.config"))
             .setSavingRunnable {
-                configFile.writeText(json.encodeToString(config))
+                saveConfigToFile()
             }
         val general = builder.getOrCreateCategory(TranslatableText("category.tpshud.general"))
         val entryBuilder = builder.entryBuilder()

@@ -50,6 +50,7 @@ class PositionSelectionScreen : Screen(LiteralText("Position Selection")) {
 
     override fun mouseReleased(mouseX: Double, mouseY: Double, button: Int): Boolean {
         selected = false
+        ClothConfigManager.saveConfigToFile()
         return super.mouseReleased(mouseX, mouseY, button)
     }
 
