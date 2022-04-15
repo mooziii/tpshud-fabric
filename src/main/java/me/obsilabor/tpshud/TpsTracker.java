@@ -20,7 +20,6 @@ public class TpsTracker implements Listener {
 
     @Subscribe
     public void onPacketReceive(PacketReceiveEvent event) {
-        System.out.println("hola");
         if (event.getPacket() instanceof WorldTimeUpdateS2CPacket) {
             long now = System.currentTimeMillis();
             float timeElapsed = (float) (now - timeLastTimeUpdate) / 1000.0F;
@@ -32,7 +31,6 @@ public class TpsTracker implements Listener {
 
     @Subscribe
     public void onGameJoined(GameJoinEvent event) {
-        System.out.println("boo!");
         Arrays.fill(tickRates, 0);
         nextIndex = 0;
         timeGameJoined = timeLastTimeUpdate = System.currentTimeMillis();
