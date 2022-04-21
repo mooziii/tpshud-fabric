@@ -17,7 +17,7 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib"))
     implementation("me.obsilabor:alert:1.0.4")
-    include("me.obsilabor:alert:1.0.1")
+    include("me.obsilabor:alert:1.0.4")
     minecraft("com.mojang:minecraft:1.18.2")
     mappings("net.fabricmc:yarn:1.18.2+build.2")
     modImplementation("net.fabricmc:fabric-loader:0.13.3")
