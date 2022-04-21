@@ -9,7 +9,7 @@ import net.minecraft.network.packet.s2c.play.WorldTimeUpdateS2CPacket;
 
 import java.util.Arrays;
 
-public class TpsTracker implements Listener {
+public class TpsTracker {
 
     public static TpsTracker INSTANCE = new TpsTracker();
 
