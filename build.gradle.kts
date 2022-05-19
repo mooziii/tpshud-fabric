@@ -1,12 +1,18 @@
+import com.matthewprenger.cursegradle.CurseProject
+import com.matthewprenger.cursegradle.CurseRelation
+import com.matthewprenger.cursegradle.Options
+
 plugins {
     kotlin("jvm") version "1.6.21"
     kotlin("plugin.serialization") version "1.6.21"
     id("fabric-loom") version "0.12-SNAPSHOT"
+    id("com.modrinth.minotaur") version "2.+"
+    id("com.matthewprenger.cursegradle") version "1.4.0"
     java
 }
 
 group = "me.obsilabor"
-version = "1.3-SNAPSHOT"
+version = "1.3+1.19-pre1"
 
 repositories {
     mavenCentral()
@@ -43,4 +49,45 @@ tasks {
             expand(properties)
         }
     }
+    named("curseforge") {
+        onlyIf {
+            System.getenv("CURSEFORGE_TOKEN") != null
+        }
+        dependsOn(remapJar)
+    }
+}
+
+modrinth {
+    token.set(System.getenv("MODRINTH_TOKEN"))
+    projectId.set("2UeET9aA")
+    versionNumber.set(project.version.toString())
+    versionType.set("release")
+    gameVersions.addAll(listOf("1.19-pre1"))
+    loaders.add("fabric")
+    dependencies {
+        required.project("Ha28R6CL")
+        optional.project("mOgUt4GM")
+    }
+
+    uploadFile.set(tasks.remapJar.get())
+}
+
+curseforge {
+    apiKey = System.getenv("CURSEFORGE_TOKEN")
+
+    project(closureOf<CurseProject> {
+        mainArtifact(tasks.remapJar.get())
+
+        id = "610618"
+        releaseType = "release"
+        addGameVersion("1.19-Snapshot")
+
+        relations(closureOf<CurseRelation> {
+            requiredDependency("cloth-config")
+            requiredDependency("fabric-language-kotlin")
+        })
+    })
+    options(closureOf<Options> {
+        forgeGradleIntegration = false
+    })
 }
