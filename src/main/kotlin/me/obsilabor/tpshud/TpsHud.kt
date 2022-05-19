@@ -8,7 +8,6 @@ import net.minecraft.client.MinecraftClient
 val json = Json {
     prettyPrint = true
     encodeDefaults = true
-    @Suppress("EXPERIMENTAL_API_USAGE")
     prettyPrintIndent = "  "
 }
 
