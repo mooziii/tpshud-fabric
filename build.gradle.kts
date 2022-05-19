@@ -80,6 +80,8 @@ curseforge {
         id = "610618"
         releaseType = "release"
         addGameVersion("1.19-Snapshot")
+        addGameVersion("Java 17")
+        addGameVersion("Fabric")
 
         relations(closureOf<CurseRelation> {
             requiredDependency("cloth-config")
