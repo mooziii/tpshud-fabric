@@ -23,8 +23,16 @@ object TpsWidget : DrawableHelper() {
         }
         val widthPartOne = minecraft.textRenderer.getWidth("TPS: ")
         minecraft.textRenderer.drawWithShadow(matrices, "TPS: ", config.x.toFloat(), config.y.toFloat(), config.textColor)
-        minecraft.textRenderer.drawWithShadow(matrices, TpsTracker.INSTANCE.tickRate.toInt().toString(), config.x+widthPartOne.toFloat(), config.y.toFloat(), config.valueTextColor)+1
+        minecraft.textRenderer.drawWithShadow(matrices, removeDot(TpsTracker.INSTANCE.tickRate.toString()), config.x+widthPartOne.toFloat(), config.y.toFloat(), config.valueTextColor)+1
         matrices.pop()
+    }
+
+    private fun removeDot(tps: String): String {
+        return if(tps.contains(".")) {
+            tps.split(".")[0]
+        } else {
+            tps
+        }
     }
 
     val width: Int
