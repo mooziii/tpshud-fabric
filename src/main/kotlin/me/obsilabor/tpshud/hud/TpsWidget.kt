@@ -57,8 +57,8 @@ object TpsWidget : DrawableHelper() {
         bufferBuilder.vertex(matrix, x2, y2, 0.0f).color(r, g, b, alpha).next()
         bufferBuilder.vertex(matrix, x2, y1, 0.0f).color(r, g, b, alpha).next()
         bufferBuilder.vertex(matrix, x1, y1, 0.0f).color(r, g, b, alpha).next()
-        bufferBuilder.end()
-        BufferRenderer.draw(bufferBuilder)
+        val buffer = bufferBuilder.end()
+        BufferRenderer.drawWithShader(buffer)
         RenderSystem.enableTexture()
         RenderSystem.disableBlend()
     }
