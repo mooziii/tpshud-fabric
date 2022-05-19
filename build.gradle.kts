@@ -28,7 +28,7 @@ dependencies {
     modImplementation("net.fabricmc:fabric-language-kotlin:1.7.4+kotlin.1.6.21")
     // modmenu & clothconfig
     modApi("com.terraformersmc:modmenu:3.1.0")
-    modApi("me.shedaniel.cloth:cloth-config-fabric:6.2.57") {
+    modApi("me.shedaniel.cloth:cloth-config-fabric:7.0.61") {
         exclude("net.fabricmc.fabric-api")
     }
 }
