@@ -5,10 +5,10 @@ import me.obsilabor.tpshud.hud.TpsWidget
 import me.obsilabor.tpshud.minecraft
 import net.minecraft.client.gui.screen.Screen
 import net.minecraft.client.util.math.MatrixStack
-import net.minecraft.text.LiteralText
+import net.minecraft.text.Text
 import org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_1
 
-class PositionSelectionScreen : Screen(LiteralText("Position Selection")) {
+class PositionSelectionScreen : Screen(Text.of("Position Selection")) {
 
     private var selected = false
     private var selectedRelX = 0
