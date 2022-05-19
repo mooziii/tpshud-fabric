@@ -1,6 +1,5 @@
 package me.obsilabor.tpshud;
 
-import me.obsilabor.alert.Listener;
 import me.obsilabor.alert.Subscribe;
 import me.obsilabor.tpshud.event.GameJoinEvent;
 import me.obsilabor.tpshud.event.PacketReceiveEvent;
