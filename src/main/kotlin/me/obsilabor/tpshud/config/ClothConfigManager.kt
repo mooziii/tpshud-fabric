@@ -119,7 +119,7 @@ object ClothConfigManager {
                 true
             )))
         }
-        kotlin.runCatching {
+        runCatching {
             config = json.decodeFromString(configFile.readText())
         }
     }
