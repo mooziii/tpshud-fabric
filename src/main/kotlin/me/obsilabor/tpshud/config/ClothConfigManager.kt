@@ -97,7 +97,7 @@ object ClothConfigManager {
         return builder.build()
     }
 
-    private val configFile = File(System.getProperty("user.dir") + "/config", "tpshud.json")
+    private val configFile = File(System.getProperty("user.dir") + "/config", "tpshud_v2.json")
     var config: TpsHudConfig? = null
 
     init {
