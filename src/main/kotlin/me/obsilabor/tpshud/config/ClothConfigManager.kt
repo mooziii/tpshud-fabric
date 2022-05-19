@@ -7,7 +7,6 @@ import me.obsilabor.tpshud.minecraft
 import me.shedaniel.clothconfig2.api.ConfigBuilder
 import net.minecraft.client.gui.screen.Screen
 import net.minecraft.text.Text
-import net.minecraft.text.TranslatableText
 import java.io.File
 
 object ClothConfigManager {
@@ -19,19 +18,19 @@ object ClothConfigManager {
     fun buildScreen(): Screen {
         val builder = ConfigBuilder.create()
             .setParentScreen(minecraft.currentScreen)
-            .setTitle(TranslatableText("title.tpshud.config"))
+            .setTitle(Text.translatable("title.tpshud.config"))
             .setSavingRunnable {
                 saveConfigToFile()
             }
-        val general = builder.getOrCreateCategory(TranslatableText("category.tpshud.general"))
+        val general = builder.getOrCreateCategory(Text.translatable("category.tpshud.general"))
         val entryBuilder = builder.entryBuilder()
-        general.addEntry(entryBuilder.startBooleanToggle(TranslatableText("option.tpshud.enabled"), config?.isEnabled ?: true)
+        general.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.tpshud.enabled"), config?.isEnabled ?: true)
             .setSaveConsumer {
                 config?.isEnabled = it
             }
             .setDefaultValue(true)
             .build())
-        general.addEntry(entryBuilder.startFloatField(TranslatableText("option.tpshud.scale"), config?.scale ?: 1f)
+        general.addEntry(entryBuilder.startFloatField(Text.translatable("option.tpshud.scale"), config?.scale ?: 1f)
             .setSaveConsumer {
                 config?.scale = it
             }
@@ -52,35 +51,35 @@ object ClothConfigManager {
             .setDefaultValue(0)
             .build()
         )
-        general.addEntry(entryBuilder.startColorField(TranslatableText("option.tpshud.textcolor"), config?.textColor ?: 16777215)
+        general.addEntry(entryBuilder.startColorField(Text.translatable("option.tpshud.textcolor"), config?.textColor ?: 16777215)
             .setSaveConsumer {
                 config?.textColor = it
             }
             .setDefaultValue(-1)
             .build()
         )
-        general.addEntry(entryBuilder.startColorField(TranslatableText("option.tpshud.valuetextcolor"), config?.valueTextColor ?: 8904424)
+        general.addEntry(entryBuilder.startColorField(Text.translatable("option.tpshud.valuetextcolor"), config?.valueTextColor ?: 8904424)
             .setSaveConsumer {
                 config?.valueTextColor = it
             }
             .setDefaultValue(8904424)
             .build()
         )
-        general.addEntry(entryBuilder.startColorField(TranslatableText("option.tpshud.backgroundcolor"), config?.backgroundColor ?: 15458785)
+        general.addEntry(entryBuilder.startColorField(Text.translatable("option.tpshud.backgroundcolor"), config?.backgroundColor ?: 15458785)
             .setSaveConsumer {
                 config?.backgroundColor = it
             }
             .setDefaultValue(15458785)
             .build()
         )
-        general.addEntry(entryBuilder.startFloatField(TranslatableText("option.tpshud.backgroundopacity"), config?.backgroundOpacity ?: 0.5f)
+        general.addEntry(entryBuilder.startFloatField(Text.translatable("option.tpshud.backgroundopacity"), config?.backgroundOpacity ?: 0.5f)
             .setSaveConsumer {
                 config?.backgroundOpacity = it
             }
             .setDefaultValue(0.5f)
             .build()
         )
-        general.addEntry(entryBuilder.startBooleanToggle(TranslatableText("option.tpshud.backgroundenabled"), config?.backgroundEnabled ?: true)
+        general.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.tpshud.backgroundenabled"), config?.backgroundEnabled ?: true)
             .setSaveConsumer {
                 config?.backgroundEnabled = it
             }
@@ -115,5 +114,4 @@ object ClothConfigManager {
             config = json.decodeFromString(configFile.readText())
         }
     }
-
 }
