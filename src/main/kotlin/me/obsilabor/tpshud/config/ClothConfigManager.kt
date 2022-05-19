@@ -86,6 +86,14 @@ object ClothConfigManager {
             .setDefaultValue(true)
             .build()
         )
+        general.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.tpshud.satisfytpscount"), config?.satisfyTpsCount ?: true)
+            .setSaveConsumer {
+                config?.satisfyTpsCount = it
+            }
+            .setDefaultValue(true)
+            .setTooltip(Text.translatable("option.tpshud.satisfytpscount.tooltip"))
+            .build()
+        )
         return builder.build()
     }
 
@@ -107,6 +115,7 @@ object ClothConfigManager {
                 1f,
                 16777215,
                 0.5f,
+                true,
                 true
             )))
         }

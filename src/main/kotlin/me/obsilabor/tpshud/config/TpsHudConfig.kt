@@ -12,5 +12,6 @@ data class TpsHudConfig(
     var scale: Float,
     var backgroundColor: Int,
     var backgroundOpacity: Float,
-    var backgroundEnabled: Boolean
+    var backgroundEnabled: Boolean,
+    var satisfyTpsCount: Boolean?
 )

@@ -7,5 +7,7 @@
   "option.tpshud.valuetextcolor": "Value Text Color",
   "option.tpshud.backgroundcolor": "Background Color",
   "option.tpshud.backgroundopacity": "Background Opacity",
-  "option.tpshud.backgroundenabled": "Background Enabled"
+  "option.tpshud.backgroundenabled": "Background Enabled",
+  "option.tpshud.satisfytpscount": "Satisfy TPS Count",
+  "option.tpshud.satisfytpscount.tooltip": "This will \"fake\" the tps count. Basically if the exact tps are 19.891, 20.0 will be displayed just to satisfy the user."
 }

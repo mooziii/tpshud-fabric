@@ -23,20 +23,24 @@ object TpsWidget : DrawableHelper() {
         }
         val widthPartOne = minecraft.textRenderer.getWidth("TPS: ")
         minecraft.textRenderer.drawWithShadow(matrices, "TPS: ", config.x.toFloat(), config.y.toFloat(), config.textColor)
-        minecraft.textRenderer.drawWithShadow(matrices, removeDot(TpsTracker.INSTANCE.tickRate.toString()), config.x+widthPartOne.toFloat(), config.y.toFloat(), config.valueTextColor)+1
+        minecraft.textRenderer.drawWithShadow(matrices, removeDot(TpsTracker.INSTANCE.tickRate), config.x+widthPartOne.toFloat(), config.y.toFloat(), config.valueTextColor)+1
         matrices.pop()
     }
 
-    private fun removeDot(tps: String): String {
-        return if(tps.contains(".")) {
-            tps.split(".")[0]
+    private fun removeDot(tps: Float): String {
+        var copy = tps
+        if(copy > 19.89 && ClothConfigManager.config?.satisfyTpsCount == true) { // show 20 to satisfy the user
+            copy = 20.0f
+        }
+        return if(tps.toString().contains(".")) {
+            copy.toString().split(".")[0]
         } else {
-            tps
+            copy.toString()
         }
     }
 
     val width: Int
-        get() = minecraft.textRenderer.getWidth("TPS: ")+minecraft.textRenderer.getWidth(TpsTracker.INSTANCE.tickRate.toInt().toString())
+        get() = minecraft.textRenderer.getWidth("TPS: ")+minecraft.textRenderer.getWidth(removeDot(TpsTracker.INSTANCE.tickRate))
 
     private fun fillBackground(matrices: MatrixStack, x1: Float, y1: Float, x2: Float, y2: Float, color: Int, alpha: Float) {
         fill(matrices.peek().positionMatrix, x1, y1, x2, y2, color, alpha)
