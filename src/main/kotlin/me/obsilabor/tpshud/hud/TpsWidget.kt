@@ -29,7 +29,7 @@ object TpsWidget : DrawableHelper() {
 
     private fun removeDot(tps: Float): String {
         var copy = tps
-        if(copy > 19.89 && ClothConfigManager.config?.satisfyTpsCount == true) { // show 20 to satisfy the user
+        if(copy >= 19.79 && ClothConfigManager.config?.satisfyTpsCount == true) { // show 20 to satisfy the user
             copy = 20.0f
         }
         return if(tps.toString().contains(".")) {
