@@ -73,9 +73,8 @@ modrinth {
 }
 
 curseforge {
-    apiKey = System.getenv("CURSEFORGE_TOKEN")
-
     project(closureOf<CurseProject> {
+        apiKey = System.getenv("CURSEFORGE_TOKEN")
         mainArtifact(tasks.remapJar.get())
 
         id = "610618"
