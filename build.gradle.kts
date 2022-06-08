@@ -25,8 +25,8 @@ dependencies {
     implementation(kotlin("stdlib"))
     api("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
     // event system
-    implementation("me.obsilabor:alert:1.0.5")
-    include("me.obsilabor:alert:1.0.5")
+    implementation("me.obsilabor:alert:1.0.6")
+    include("me.obsilabor:alert:1.0.6")
     // fabric
     minecraft("com.mojang:minecraft:1.19")
     mappings("net.fabricmc:yarn:1.19+build.1")
