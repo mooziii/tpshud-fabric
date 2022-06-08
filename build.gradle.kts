@@ -12,7 +12,7 @@ plugins {
 }
 
 group = "me.obsilabor"
-version = "1.3+1.19-pre1"
+version = "1.4+1.19"
 
 repositories {
     mavenCentral()
@@ -23,18 +23,18 @@ repositories {
 dependencies {
     // kotlin
     implementation(kotlin("stdlib"))
-    api("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
+    api("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
     // event system
-    implementation("me.obsilabor:alert:1.0.5")
-    include("me.obsilabor:alert:1.0.5")
+    implementation("me.obsilabor:alert:1.0.6")
+    include("me.obsilabor:alert:1.0.6")
     // fabric
-    minecraft("com.mojang:minecraft:1.19-pre1")
-    mappings("net.fabricmc:yarn:1.19-pre1+build.1")
-    modImplementation("net.fabricmc:fabric-loader:0.14.5")
+    minecraft("com.mojang:minecraft:1.19")
+    mappings("net.fabricmc:yarn:1.19+build.1")
+    modImplementation("net.fabricmc:fabric-loader:0.14.6")
     modImplementation("net.fabricmc:fabric-language-kotlin:1.7.4+kotlin.1.6.21")
     // modmenu & clothconfig
-    modApi("com.terraformersmc:modmenu:3.1.0")
-    modApi("me.shedaniel.cloth:cloth-config-fabric:7.0.61") {
+    modApi("com.terraformersmc:modmenu:4.0.0")
+    modApi("me.shedaniel.cloth:cloth-config-fabric:7.0.65") {
         exclude("net.fabricmc.fabric-api")
     }
 }
@@ -62,7 +62,7 @@ modrinth {
     projectId.set("2UeET9aA")
     versionNumber.set(project.version.toString())
     versionType.set("release")
-    gameVersions.addAll(listOf("1.19-pre1"))
+    gameVersions.addAll(listOf("1.19"))
     loaders.add("fabric")
     dependencies {
         required.project("Ha28R6CL")
@@ -79,7 +79,7 @@ curseforge {
 
         id = "610618"
         releaseType = "release"
-        addGameVersion("1.19-Snapshot")
+        addGameVersion("1.19")
         addGameVersion("Java 17")
         addGameVersion("Fabric")
 
