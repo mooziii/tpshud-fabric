@@ -64,6 +64,7 @@ modrinth {
     versionType.set("release")
     gameVersions.addAll(listOf("1.19"))
     loaders.add("fabric")
+    loaders.add("quilt")
     dependencies {
         required.project("Ha28R6CL")
         optional.project("mOgUt4GM")
@@ -82,6 +83,7 @@ curseforge {
         addGameVersion("1.19")
         addGameVersion("Java 17")
         addGameVersion("Fabric")
+        addGameVersion("Quilt")
 
         relations(closureOf<CurseRelation> {
             requiredDependency("cloth-config")
