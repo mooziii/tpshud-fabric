@@ -94,6 +94,14 @@ object ClothConfigManager {
             .setTooltip(Text.translatable("option.tpshud.satisfytpscount.tooltip"))
             .build()
         )
+        general.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.tpshud.textShadow"), config?.textShadow ?: true)
+            .setSaveConsumer {
+                config?.textShadow = it
+            }
+            .setDefaultValue(true)
+            .setTooltip(Text.translatable("option.tpshud.textShadow.tooltip"))
+            .build()
+        )
         return builder.build()
     }
 
@@ -115,6 +123,7 @@ object ClothConfigManager {
                 1f,
                 16777215,
                 0.5f,
+                true,
                 true,
                 true
             )))
