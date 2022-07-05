@@ -22,8 +22,13 @@ object TpsWidget : DrawableHelper() {
             RenderSystem.enableDepthTest()
         }
         val widthPartOne = minecraft.textRenderer.getWidth("TPS: ")
-        minecraft.textRenderer.drawWithShadow(matrices, "TPS: ", config.x.toFloat(), config.y.toFloat(), config.textColor)
-        minecraft.textRenderer.drawWithShadow(matrices, removeDot(TpsTracker.INSTANCE.tickRate), config.x+widthPartOne.toFloat(), config.y.toFloat(), config.valueTextColor)+1
+        if(config.textShadow) {
+            minecraft.textRenderer.drawWithShadow(matrices, "TPS: ", config.x.toFloat(), config.y.toFloat(), config.textColor)
+            minecraft.textRenderer.drawWithShadow(matrices, removeDot(TpsTracker.INSTANCE.tickRate), config.x+widthPartOne.toFloat(), config.y.toFloat(), config.valueTextColor)+1
+        } else {
+            minecraft.textRenderer.draw(matrices, "TPS: ", config.x.toFloat(), config.y.toFloat(), config.textColor)
+            minecraft.textRenderer.draw(matrices, removeDot(TpsTracker.INSTANCE.tickRate), config.x+widthPartOne.toFloat(), config.y.toFloat(), config.valueTextColor)+1
+        }
         matrices.pop()
     }
 
