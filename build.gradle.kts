@@ -3,8 +3,8 @@ import com.matthewprenger.cursegradle.CurseRelation
 import com.matthewprenger.cursegradle.Options
 
 plugins {
-    kotlin("jvm") version "1.6.21"
-    kotlin("plugin.serialization") version "1.6.21"
+    kotlin("jvm") version "1.7.0"
+    kotlin("plugin.serialization") version "1.7.0"
     id("fabric-loom") version "0.12-SNAPSHOT"
     id("com.modrinth.minotaur") version "2.+"
     id("com.matthewprenger.cursegradle") version "1.4.0"
@@ -31,7 +31,7 @@ dependencies {
     minecraft("com.mojang:minecraft:1.19")
     mappings("net.fabricmc:yarn:1.19+build.4")
     modImplementation("net.fabricmc:fabric-loader:0.14.6")
-    modImplementation("net.fabricmc:fabric-language-kotlin:1.7.4+kotlin.1.6.21")
+    modImplementation("net.fabricmc:fabric-language-kotlin:1.8.1+kotlin.1.7.0")
     // modmenu & clothconfig
     modApi("com.terraformersmc:modmenu:4.0.0")
     modApi("me.shedaniel.cloth:cloth-config-fabric:7.0.65") {
