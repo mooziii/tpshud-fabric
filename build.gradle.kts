@@ -3,8 +3,8 @@ import com.matthewprenger.cursegradle.CurseRelation
 import com.matthewprenger.cursegradle.Options
 
 plugins {
-    kotlin("jvm") version "1.7.0"
-    kotlin("plugin.serialization") version "1.7.0"
+    kotlin("jvm") version "1.7.10"
+    kotlin("plugin.serialization") version "1.7.10"
     id("fabric-loom") version "0.12-SNAPSHOT"
     id("com.modrinth.minotaur") version "2.+"
     id("com.matthewprenger.cursegradle") version "1.4.0"
@@ -12,7 +12,7 @@ plugins {
 }
 
 group = "me.obsilabor"
-version = "1.4.2+1.19"
+version = "1.4.2+1.19.1"
 
 repositories {
     mavenCentral()
@@ -23,18 +23,18 @@ repositories {
 dependencies {
     // kotlin
     implementation(kotlin("stdlib"))
-    api("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
+    api("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0-RC")
     // event system
     implementation("me.obsilabor:alert:1.0.6")
     include("me.obsilabor:alert:1.0.6")
     // fabric
-    minecraft("com.mojang:minecraft:1.19")
-    mappings("net.fabricmc:yarn:1.19+build.4")
-    modImplementation("net.fabricmc:fabric-loader:0.14.6")
-    modImplementation("net.fabricmc:fabric-language-kotlin:1.8.1+kotlin.1.7.0")
+    minecraft("com.mojang:minecraft:1.19.1")
+    mappings("net.fabricmc:yarn:1.19.1+build.1")
+    modImplementation("net.fabricmc:fabric-loader:0.14.8")
+    modImplementation("net.fabricmc:fabric-language-kotlin:1.8.2+kotlin.1.7.10")
     // modmenu & clothconfig
-    modApi("com.terraformersmc:modmenu:4.0.2")
-    modApi("me.shedaniel.cloth:cloth-config-fabric:7.0.72") {
+    modApi("com.terraformersmc:modmenu:4.0.5")
+    modApi("me.shedaniel.cloth:cloth-config-fabric:7.0.73") {
         exclude("net.fabricmc.fabric-api")
     }
 }
@@ -62,7 +62,7 @@ modrinth {
     projectId.set("2UeET9aA")
     versionNumber.set(project.version.toString())
     versionType.set("release")
-    gameVersions.addAll(listOf("1.19"))
+    gameVersions.addAll(listOf("1.19.1"))
     loaders.add("fabric")
     loaders.add("quilt")
     dependencies {
@@ -81,7 +81,7 @@ curseforge {
 
         id = "610618"
         releaseType = "release"
-        addGameVersion("1.19")
+        addGameVersion("1.19.1")
         addGameVersion("Java 17")
         addGameVersion("Fabric")
         addGameVersion("Quilt")

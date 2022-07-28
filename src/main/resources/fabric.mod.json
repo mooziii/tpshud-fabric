@@ -26,10 +26,11 @@
   ],
   "depends": {
     "fabric-language-kotlin": "*",
-    "minecraft": ">=1.19",
+    "minecraft": ">=1.19.1",
     "cloth-config": ">=7.0.65"
   },
   "recommends": {
-    "modmenu": ">=4.0.0"
+    "modmenu": ">=4.0.5",
+    "cloth-config": ">=7.0.73"
   }
 }
