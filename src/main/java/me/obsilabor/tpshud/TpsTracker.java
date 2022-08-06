@@ -32,6 +32,7 @@ public class TpsTracker {
 
     @Subscribe
     public void onGameJoined(GameJoinEvent event) {
+        serverProvidedTps = -1;
         Arrays.fill(tickRates, 0);
         nextIndex = 0;
         timeGameJoined = timeLastTimeUpdate = System.currentTimeMillis();
