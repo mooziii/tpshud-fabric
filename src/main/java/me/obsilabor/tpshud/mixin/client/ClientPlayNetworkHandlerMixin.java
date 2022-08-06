@@ -1,4 +1,4 @@
-package me.obsilabor.tpshud.mixin;
+package me.obsilabor.tpshud.mixin.client;
 
 import me.obsilabor.alert.EventManager;
 import me.obsilabor.tpshud.event.GameJoinEvent;
@@ -11,10 +11,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ClientPlayNetworkHandler.class)
 public abstract class ClientPlayNetworkHandlerMixin {
-
     @Inject(at = @At("TAIL"), method = "onGameJoin")
     private void triggerJoinEvent(GameJoinS2CPacket packet, CallbackInfo info) {
         EventManager.callEvent(new GameJoinEvent());
     }
-
 }

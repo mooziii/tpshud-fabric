@@ -1,6 +1,6 @@
-package me.obsilabor.tpshud.mixin;
+package me.obsilabor.tpshud.mixin.client;
 
-import me.obsilabor.tpshud.pos.PositionSelectionScreen;
+import me.obsilabor.tpshud.screen.PositionSelectionScreen;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.screen.Screen;
@@ -17,7 +17,6 @@ import java.util.List;
 
 @Mixin(Screen.class)
 public abstract class ScreenMixin extends AbstractParentElement implements Drawable {
-
     @Shadow @Final protected Text title;
 
     @Shadow @Final private List<Drawable> drawables;
@@ -37,5 +36,4 @@ public abstract class ScreenMixin extends AbstractParentElement implements Drawa
             selectables.add(button);
         }
     }
-
 }

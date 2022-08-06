@@ -51,47 +51,47 @@ object ClothConfigManager {
             .setDefaultValue(0)
             .build()
         )
-        general.addEntry(entryBuilder.startColorField(Text.translatable("option.tpshud.textcolor"), config?.textColor ?: 16777215)
+        general.addEntry(entryBuilder.startColorField(Text.translatable("option.tpshud.textColor"), config?.textColor ?: 16777215)
             .setSaveConsumer {
                 config?.textColor = it
             }
             .setDefaultValue(-1)
             .build()
         )
-        general.addEntry(entryBuilder.startColorField(Text.translatable("option.tpshud.valuetextcolor"), config?.valueTextColor ?: 8904424)
+        general.addEntry(entryBuilder.startColorField(Text.translatable("option.tpshud.valueTextColor"), config?.valueTextColor ?: 8904424)
             .setSaveConsumer {
                 config?.valueTextColor = it
             }
             .setDefaultValue(8904424)
             .build()
         )
-        general.addEntry(entryBuilder.startColorField(Text.translatable("option.tpshud.backgroundcolor"), config?.backgroundColor ?: 15458785)
+        general.addEntry(entryBuilder.startColorField(Text.translatable("option.tpshud.backgroundColor"), config?.backgroundColor ?: 15458785)
             .setSaveConsumer {
                 config?.backgroundColor = it
             }
             .setDefaultValue(15458785)
             .build()
         )
-        general.addEntry(entryBuilder.startFloatField(Text.translatable("option.tpshud.backgroundopacity"), config?.backgroundOpacity ?: 0.5f)
+        general.addEntry(entryBuilder.startFloatField(Text.translatable("option.tpshud.backgroundOpacity"), config?.backgroundOpacity ?: 0.5f)
             .setSaveConsumer {
                 config?.backgroundOpacity = it
             }
             .setDefaultValue(0.5f)
             .build()
         )
-        general.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.tpshud.backgroundenabled"), config?.backgroundEnabled ?: true)
+        general.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.tpshud.backgroundEnabled"), config?.backgroundEnabled ?: true)
             .setSaveConsumer {
                 config?.backgroundEnabled = it
             }
             .setDefaultValue(true)
             .build()
         )
-        general.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.tpshud.satisfytpscount"), config?.satisfyTpsCount ?: true)
+        general.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.tpshud.satisfyTpsCount"), config?.satisfyTpsCount ?: true)
             .setSaveConsumer {
                 config?.satisfyTpsCount = it
             }
             .setDefaultValue(true)
-            .setTooltip(Text.translatable("option.tpshud.satisfytpscount.tooltip"))
+            .setTooltip(Text.translatable("option.tpshud.satisfyTpsCount.tooltip"))
             .build()
         )
         general.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.tpshud.textShadow"), config?.textShadow ?: true)
@@ -100,6 +100,24 @@ object ClothConfigManager {
             }
             .setDefaultValue(true)
             .setTooltip(Text.translatable("option.tpshud.textShadow.tooltip"))
+            .build()
+        )
+        general.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.tpshud.useServerProvidedData"), config?.useServerProvidedData ?: true)
+            .setSaveConsumer {
+                config?.useServerProvidedData = it
+            }
+            .setDefaultValue(true)
+            .setTooltip(
+                Text.translatable("option.tpshud.useServerProvidedData.tooltip1"),
+                Text.translatable("option.tpshud.useServerProvidedData.tooltip2")
+            )
+            .build()
+        )
+        general.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.tpshud.showCompatibilityToast"), config?.showCompatibilityToast ?: true)
+            .setSaveConsumer {
+                config?.showCompatibilityToast = it
+            }
+            .setDefaultValue(true)
             .build()
         )
         return builder.build()
@@ -125,6 +143,9 @@ object ClothConfigManager {
                 0.5f,
                 true,
                 true,
+                true,
+                true,
+                false,
                 true
             )))
         }

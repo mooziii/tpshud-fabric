@@ -1,0 +1,9 @@
+main: me.obsilabor.tpshud.TpsHudPaper
+name: tps-hud
+description: "Plugin to send data to clients using tps-hud: https://github.com/mooziii/tpshud-fabric"
+api-version: 1.19
+version: ${version}
+author: mooziii
+website: "https://github.com/mooziii/tpshud-fabric"
+libraries:
+  - org.jetbrains.kotlin:kotlin-stdlib:1.7.10

@@ -14,5 +14,8 @@ data class TpsHudConfig(
     var backgroundOpacity: Float,
     var backgroundEnabled: Boolean,
     var satisfyTpsCount: Boolean = true,
-    var textShadow: Boolean = true
+    var textShadow: Boolean = true,
+    var useServerProvidedData: Boolean? = true,
+    var askedForServerProvidedData: Boolean? = false,
+    var showCompatibilityToast: Boolean? = true
 )

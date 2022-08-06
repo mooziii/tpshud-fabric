@@ -10,7 +10,6 @@ import net.minecraft.client.util.math.MatrixStack
 import net.minecraft.util.math.Matrix4f
 
 object TpsWidget : DrawableHelper() {
-
     fun render(matrices: MatrixStack) {
         val config = ClothConfigManager.config ?: return
         if(!config.isEnabled) return

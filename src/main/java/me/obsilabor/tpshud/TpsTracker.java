@@ -1,11 +1,11 @@
 package me.obsilabor.tpshud;
 
 import me.obsilabor.alert.Subscribe;
+import me.obsilabor.tpshud.config.ClothConfigManager;
 import me.obsilabor.tpshud.event.GameJoinEvent;
 import me.obsilabor.tpshud.event.PacketReceiveEvent;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.packet.s2c.play.WorldTimeUpdateS2CPacket;
-
 import java.util.Arrays;
 
 public class TpsTracker {
@@ -16,6 +16,8 @@ public class TpsTracker {
     private int nextIndex = 0;
     private long timeLastTimeUpdate = -1;
     private long timeGameJoined;
+
+    public float serverProvidedTps = -1;
 
     @Subscribe
     public void onPacketReceive(PacketReceiveEvent event) {
@@ -36,7 +38,11 @@ public class TpsTracker {
     }
 
     public float getTickRate() {
-        if (MinecraftClient.getInstance().player == null) return 0;
+        MinecraftClient minecraft = MinecraftClient.getInstance();
+        if (serverProvidedTps != -1 && !minecraft.world.isClient && ClothConfigManager.INSTANCE.getConfig().getUseServerProvidedData()) {
+            return serverProvidedTps;
+        }
+        if (minecraft.player == null) return 0;
         if (System.currentTimeMillis() - timeGameJoined < 4000) return 20;
 
         int numTicks = 0;
@@ -54,5 +60,4 @@ public class TpsTracker {
         if (value < min) return min;
         return Math.min(value, max);
     }
-
 }

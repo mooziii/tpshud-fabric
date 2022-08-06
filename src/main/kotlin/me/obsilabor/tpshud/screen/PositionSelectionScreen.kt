@@ -1,4 +1,4 @@
-package me.obsilabor.tpshud.pos
+package me.obsilabor.tpshud.screen
 
 import me.obsilabor.tpshud.config.ClothConfigManager
 import me.obsilabor.tpshud.hud.TpsWidget
@@ -9,7 +9,6 @@ import net.minecraft.text.Text
 import org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_1
 
 class PositionSelectionScreen : Screen(Text.of("Position Selection")) {
-
     private var selected = false
     private var selectedRelX = 0
     private var selectedRelY = 0
@@ -60,5 +59,4 @@ class PositionSelectionScreen : Screen(Text.of("Position Selection")) {
         drawVerticalLine(matrices, x1, y1, y2, color)
         drawVerticalLine(matrices, x2, y1, y2, color)
     }
-
 }

@@ -1,4 +1,4 @@
-package me.obsilabor.tpshud.mixin;
+package me.obsilabor.tpshud.mixin.client;
 
 import me.obsilabor.alert.EventManager;
 import me.obsilabor.tpshud.event.PacketReceiveEvent;
@@ -12,7 +12,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ClientConnection.class)
 public class ClientConnectionMixin {
-
     @Inject(method = "handlePacket", at = @At("HEAD"), cancellable = true)
     private static <T extends PacketListener> void onHandlePacket(Packet<T> packet, PacketListener listener, CallbackInfo info) {
         PacketReceiveEvent event = new PacketReceiveEvent(packet);
@@ -21,5 +20,4 @@ public class ClientConnectionMixin {
             info.cancel();
         }
     }
-
 }
