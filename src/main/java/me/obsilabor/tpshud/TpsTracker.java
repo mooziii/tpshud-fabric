@@ -1,7 +1,7 @@
 package me.obsilabor.tpshud;
 
 import me.obsilabor.alert.Subscribe;
-import me.obsilabor.tpshud.config.ClothConfigManager;
+import me.obsilabor.tpshud.config.ConfigManager;
 import me.obsilabor.tpshud.event.GameJoinEvent;
 import me.obsilabor.tpshud.event.PacketReceiveEvent;
 import net.minecraft.client.MinecraftClient;
@@ -40,7 +40,7 @@ public class TpsTracker {
 
     public float getTickRate() {
         MinecraftClient minecraft = MinecraftClient.getInstance();
-        if (serverProvidedTps != -1 && !minecraft.world.isClient && ClothConfigManager.INSTANCE.getConfig().getUseServerProvidedData()) {
+        if (serverProvidedTps != -1 && !minecraft.world.isClient && ConfigManager.INSTANCE.getConfig().getUseServerProvidedData()) {
             return serverProvidedTps;
         }
         if (minecraft.player == null) return 0;

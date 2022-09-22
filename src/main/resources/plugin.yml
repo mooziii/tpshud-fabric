@@ -1,4 +1,4 @@
-main: me.obsilabor.tpshud.TpsHudPaper
+main: me.obsilabor.tpshud.server.TpsHudPaperServer
 name: tps-hud
 description: "Plugin to send data to clients using tps-hud: https://github.com/mooziii/tpshud-fabric"
 api-version: 1.19

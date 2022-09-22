@@ -2,7 +2,8 @@ package me.obsilabor.tpshud.hud
 
 import com.mojang.blaze3d.systems.RenderSystem
 import me.obsilabor.tpshud.TpsTracker
-import me.obsilabor.tpshud.config.ClothConfigManager
+import me.obsilabor.tpshud.config.ConfigManager
+import me.obsilabor.tpshud.config.TpsHudConfig
 import me.obsilabor.tpshud.minecraft
 import net.minecraft.client.gui.DrawableHelper
 import net.minecraft.client.render.*
@@ -11,10 +12,10 @@ import net.minecraft.util.math.Matrix4f
 
 object TpsWidget : DrawableHelper() {
     fun render(matrices: MatrixStack) {
-        val config = ClothConfigManager.config ?: return
+        val config = ConfigManager.config ?: return
         if(!config.isEnabled) return
         matrices.push()
-        matrices.scale(ClothConfigManager.config?.scale?:1f, ClothConfigManager.config?.scale?:1f, 0f)
+        matrices.scale(ConfigManager.config?.scale?:1f, ConfigManager.config?.scale?:1f, 0f)
         if(config.backgroundEnabled) {
             RenderSystem.disableDepthTest()
             fillBackground(matrices, config.x.toFloat(), config.y.toFloat(), config.x+width.toFloat(), config.y+minecraft.textRenderer.fontHeight+1f, config.backgroundColor, config.backgroundOpacity)
@@ -31,9 +32,30 @@ object TpsWidget : DrawableHelper() {
         matrices.pop()
     }
 
+    fun renderLivePreview(matrices: MatrixStack, x: Int, y: Int) {
+        val config = ConfigManager.config ?: return
+        if(!config.isEnabled) return
+        matrices.push()
+        matrices.scale(ConfigManager.config?.scale?:1f, ConfigManager.config?.scale?:1f, 0f)
+        if(config.backgroundEnabled) {
+            RenderSystem.disableDepthTest()
+            fillBackground(matrices,x.toFloat(), y.toFloat(), x+width.toFloat()+7f, y+ minecraft.textRenderer.fontHeight+1f, config.backgroundColor, config.backgroundOpacity)
+            RenderSystem.enableDepthTest()
+        }
+        val widthPartOne = minecraft.textRenderer.getWidth("TPS: ")
+        if(config.textShadow) {
+            minecraft.textRenderer.drawWithShadow(matrices, "TPS: ", x.toFloat(), y.toFloat(), config.textColor)
+            minecraft.textRenderer.drawWithShadow(matrices, removeDot(19.89F), x+widthPartOne.toFloat(), y.toFloat(), config.valueTextColor)+1
+        } else {
+            minecraft.textRenderer.draw(matrices, "TPS: ", x.toFloat(), y.toFloat(), config.textColor)
+            minecraft.textRenderer.draw(matrices, removeDot(19.89F), x+widthPartOne.toFloat(), y.toFloat(), config.valueTextColor)+1
+        }
+        matrices.pop()
+    }
+
     private fun removeDot(tps: Float): String {
         var copy = tps
-        if(copy >= 19.79 && ClothConfigManager.config?.satisfyTpsCount == true) { // show 20 to satisfy the user
+        if(copy >= 19.79 && ConfigManager.config?.satisfyTpsCount == true) { // show 20 to satisfy the user
             copy = 20.0f
         }
         return if(tps.toString().contains(".")) {

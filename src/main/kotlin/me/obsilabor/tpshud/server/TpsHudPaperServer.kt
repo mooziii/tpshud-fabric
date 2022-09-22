@@ -1,4 +1,4 @@
-package me.obsilabor.tpshud
+package me.obsilabor.tpshud.server
 
 import me.obsilabor.tpshud.networking.Packets
 import org.bukkit.Bukkit
@@ -8,7 +8,7 @@ import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.plugin.java.JavaPlugin
 import java.nio.ByteBuffer
 
-class TpsHudPaper : JavaPlugin(), Listener {
+class TpsHudPaperServer : JavaPlugin(), Listener {
     override fun onEnable() {
         Bukkit.getPluginManager().registerEvents(this, this)
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, Packets.TPS_STRING)

@@ -18,4 +18,23 @@ data class TpsHudConfig(
     var useServerProvidedData: Boolean? = true,
     var askedForServerProvidedData: Boolean? = false,
     var showCompatibilityToast: Boolean? = true
-)
+) {
+    companion object {
+        val DEFAULT = TpsHudConfig(
+            true,
+            0,
+            0,
+            16777215,
+            8904424,
+            1f,
+            16777215,
+            0.5f,
+            true,
+            true,
+            true,
+            true,
+            false,
+            true
+        )
+    }
+}

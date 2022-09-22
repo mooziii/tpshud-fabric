@@ -1,15 +1,15 @@
 package me.obsilabor.tpshud.screen
 
 import it.unimi.dsi.fastutil.booleans.BooleanConsumer
-import me.obsilabor.tpshud.config.ClothConfigManager
+import me.obsilabor.tpshud.config.ConfigManager
 import net.minecraft.client.MinecraftClient
 import net.minecraft.client.gui.screen.ConfirmScreen
 import net.minecraft.text.Text
 
 class CompatibleServerScreen : ConfirmScreen(
     BooleanConsumer {
-        ClothConfigManager.config?.useServerProvidedData = it
-        ClothConfigManager.saveConfigToFile()
+        ConfigManager.config?.useServerProvidedData = it
+        ConfigManager.saveConfigToFile()
         MinecraftClient.getInstance().setScreen(null)
     },
     Text.translatable("screen.useServerProvidedData.title"),
@@ -19,7 +19,7 @@ class CompatibleServerScreen : ConfirmScreen(
 
 ) {
     init {
-        ClothConfigManager.config?.askedForServerProvidedData = true
-        ClothConfigManager.saveConfigToFile()
+        ConfigManager.config?.askedForServerProvidedData = true
+        ConfigManager.saveConfigToFile()
     }
 }

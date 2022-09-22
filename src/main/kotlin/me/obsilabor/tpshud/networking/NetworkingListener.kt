@@ -1,7 +1,7 @@
 package me.obsilabor.tpshud.networking
 
 import me.obsilabor.tpshud.TpsTracker
-import me.obsilabor.tpshud.config.ClothConfigManager
+import me.obsilabor.tpshud.config.ConfigManager
 import me.obsilabor.tpshud.minecraft
 import me.obsilabor.tpshud.screen.CompatibleServerScreen
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking
@@ -11,7 +11,7 @@ import net.minecraft.text.Text
 object NetworkingListener {
     init {
         ClientPlayNetworking.registerGlobalReceiver(Packets.HANDSHAKE) { client, _, _, _ ->
-            if (ClothConfigManager.config?.askedForServerProvidedData != true) {
+            if (ConfigManager.config?.askedForServerProvidedData != true) {
                 minecraft.execute {
                     client.setScreen(CompatibleServerScreen())
                 }
@@ -26,7 +26,7 @@ object NetworkingListener {
             }
         }
         ClientPlayNetworking.registerGlobalReceiver(Packets.TPS) { _, _, bytebuf, _ ->
-            if (ClothConfigManager.config?.askedForServerProvidedData != true) {
+            if (ConfigManager.config?.askedForServerProvidedData != true) {
                 return@registerGlobalReceiver
             }
             val tps = bytebuf.readDouble().toFloat()

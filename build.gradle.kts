@@ -12,19 +12,18 @@ plugins {
 }
 
 group = "me.obsilabor"
-version = "1.5.1+1.19.2"
+version = "1.6.0+1.19.2"
 
 repositories {
     mavenCentral()
-    maven("https://maven.shedaniel.me/")
     maven("https://maven.terraformersmc.com")
     maven("https://repo.papermc.io/repository/maven-public/")
+    maven("https://maven.isxander.dev/releases")
 }
 
 dependencies {
     // kotlin
     implementation(kotlin("stdlib"))
-    api("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0-RC")
     // event system
     implementation("me.obsilabor:alert:1.0.6")
     include("me.obsilabor:alert:1.0.6")
@@ -38,16 +37,14 @@ dependencies {
     minecraft("com.mojang:minecraft:1.19.2")
     mappings("net.fabricmc:yarn:1.19.2+build.1")
     modImplementation("net.fabricmc:fabric-loader:0.14.9")
-    modImplementation("net.fabricmc:fabric-language-kotlin:1.8.2+kotlin.1.7.10")
-    modImplementation("net.fabricmc.fabric-api:fabric-api:0.59.0+1.19.2")
-    // modmenu & cloth-config
-    modApi("net.silkmc:silk-core:1.9.0")
+    modImplementation("net.fabricmc:fabric-language-kotlin:1.8.3+kotlin.1.7.10")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:0.61.0+1.19.2")
+    // modmenu
     modApi("com.terraformersmc:modmenu:4.0.6") {
         exclude("net.fabricmc.fabric-api")
     }
-    modApi("me.shedaniel.cloth:cloth-config-fabric:8.0.75") {
-        exclude("net.fabricmc.fabric-api")
-    }
+    // yacl
+    modImplementation("dev.isxander:yet-another-config-lib:1.4.2")
 }
 
 tasks {
@@ -83,15 +80,18 @@ modrinth {
     projectId.set("2UeET9aA")
     versionNumber.set(project.version.toString())
     versionType.set("release")
-    gameVersions.addAll(listOf("1.19", "1.19.1", "1.19.2"))
+    gameVersions.addAll(listOf("1.19.2"))
     loaders.add("fabric")
     loaders.add("quilt")
+    loaders.add("purpur")
+    loaders.add("paper")
+    loaders.add("spigot")
+    loaders.add("bukkit")
     dependencies {
         required.project("P7dR8mSH") // fabric-api
         required.project("Ha28R6CL") // fabric-language-kotlin
         optional.project("9s6osm5g") // cloth-config
         optional.project("mOgUt4GM") // modmenu
-        optional.project("aTaCgKLW") // silk (only required on the server side)
     }
     uploadFile.set(tasks.remapJar.get())
 }
@@ -104,8 +104,6 @@ curseforge {
         id = "610618"
         releaseType = "release"
         addGameVersion("1.19.2")
-        addGameVersion("1.19.1")
-        addGameVersion("1.19")
         addGameVersion("Fabric")
         addGameVersion("Quilt")
 
@@ -114,7 +112,6 @@ curseforge {
             requiredDependency("fabric-language-kotlin")
             optionalDependency("cloth-config")
             optionalDependency("modmenu")
-            optionalDependency("silk-kt")
         })
     })
     options(closureOf<Options> {
