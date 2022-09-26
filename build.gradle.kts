@@ -44,7 +44,7 @@ dependencies {
         exclude("net.fabricmc.fabric-api")
     }
     // yacl
-    modImplementation("dev.isxander:yet-another-config-lib:1.4.2")
+    modImplementation("dev.isxander:yet-another-config-lib:1.5.0")
 }
 
 tasks {
@@ -77,7 +77,7 @@ tasks {
 
 modrinth {
     token.set(System.getenv("MODRINTH_TOKEN"))
-    projectId.set("2UeET9aA")
+    projectId.set("tps-hud")
     versionNumber.set(project.version.toString())
     versionType.set("release")
     gameVersions.addAll(listOf("1.19.2"))
@@ -88,10 +88,10 @@ modrinth {
     loaders.add("spigot")
     loaders.add("bukkit")
     dependencies {
-        required.project("P7dR8mSH") // fabric-api
-        required.project("Ha28R6CL") // fabric-language-kotlin
-        optional.project("9s6osm5g") // cloth-config
-        optional.project("mOgUt4GM") // modmenu
+        required.project("fabric-api")
+        required.project("fabric-language-kotlin")
+        optional.project("yacl")
+        optional.project("modmenu")
     }
     uploadFile.set(tasks.remapJar.get())
 }
@@ -110,7 +110,7 @@ curseforge {
         relations(closureOf<CurseRelation> {
             requiredDependency("fabric-api")
             requiredDependency("fabric-language-kotlin")
-            optionalDependency("cloth-config")
+            optionalDependency("yacl")
             optionalDependency("modmenu")
         })
     })

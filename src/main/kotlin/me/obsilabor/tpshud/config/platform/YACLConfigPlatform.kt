@@ -3,6 +3,7 @@ package me.obsilabor.tpshud.config.platform
 import dev.isxander.yacl.api.ButtonOption
 import dev.isxander.yacl.api.ConfigCategory
 import dev.isxander.yacl.api.Option
+import dev.isxander.yacl.api.OptionGroup
 import dev.isxander.yacl.api.YetAnotherConfigLib
 import dev.isxander.yacl.gui.controllers.ActionController
 import dev.isxander.yacl.gui.controllers.BooleanController
@@ -23,70 +24,102 @@ object YACLConfigPlatform {
         val styleCategory = ConfigCategory.createBuilder()
             .name(Text.translatable("category.style"))
             .tooltip(Text.translatable("category.style.tooltip"))
-            .options(listOf(
-                Option.createBuilder(Boolean::class.java)
-                    .name(Text.translatable("option.tpshud.enabled"))
-                    .binding(
-                        true,
-                        { ConfigManager.configOrException.isEnabled },
-                        { ConfigManager.configOrException.isEnabled = it }
+            .group(OptionGroup.createBuilder()
+                .name(Text.translatable("category.style.group.appearance"))
+                .options(
+                    listOf(
+                        Option.createBuilder(Boolean::class.java)
+                            .name(Text.translatable("option.tpshud.enabled"))
+                            .binding(
+                                true,
+                                { ConfigManager.configOrException.isEnabled },
+                                { ConfigManager.configOrException.isEnabled = it }
+                            )
+                            .controller { option ->
+                                BooleanController(
+                                    option,
+                                    BooleanController.YES_NO_FORMATTER,
+                                    true
+                                )
+                            }.build(),
+                        ButtonOption.createBuilder()
+                            .name(Text.translatable("option.tpshud.dragHud"))
+                            .tooltip(Text.translatable("option.tpshud.dragHud.tooltip"))
+                            .action { parent, _ ->
+                                minecraft.setScreen(PositionSelectionScreen(parent))
+                            }
+                            .controller { ActionController(it) }
+                            .build(),
+
+                        Option.createBuilder(Float::class.java)
+                            .name(Text.translatable("option.tpshud.scale"))
+                            .binding(
+                                1.0F,
+                                { ConfigManager.configOrException.scale },
+                                { ConfigManager.configOrException.scale = it }
+                            )
+                            .controller { option ->
+                                FloatSliderController(
+                                    option,
+                                    0.1F,
+                                    5.0F,
+                                    0.1F
+                                )
+                            }.build()
                     )
-                    .controller { option ->
-                        BooleanController(
-                            option,
-                            BooleanController.YES_NO_FORMATTER,
-                            true
-                        )
-                    }.build(),
-                ButtonOption.createBuilder()
-                    .name(Text.translatable("option.tpshud.dragHud"))
-                    .tooltip(Text.translatable("option.tpshud.dragHud.tooltip"))
-                    .action { parent, _ ->
-                        minecraft.setScreen(PositionSelectionScreen(parent))
-                    }
-                    .controller { ActionController(it) }
-                    .build(),
-                Option.createBuilder(Color::class.java)
-                    .name(Text.translatable("option.tpshud.textColor"))
-                    .binding(
-                        Color(16777215),
-                        { Color(ConfigManager.configOrException.textColor) },
-                        { ConfigManager.configOrException.textColor = it.rgb }
+                ).build()
+            )
+            .group(OptionGroup.createBuilder()
+                .name(Text.translatable("category.style.group.text"))
+                .options(
+                    listOf(
+                        Option.createBuilder(Color::class.java)
+                            .name(Text.translatable("option.tpshud.textColor"))
+                            .binding(
+                                Color(16777215),
+                                { Color(ConfigManager.configOrException.textColor) },
+                                { ConfigManager.configOrException.textColor = it.rgb }
+                            )
+                            .controller { option ->
+                                ColorController(
+                                    option,
+                                    false
+                                )
+                            }.build(),
+                        Option.createBuilder(Color::class.java)
+                            .name(Text.translatable("option.tpshud.valueTextColor"))
+                            .binding(
+                                Color(8904424),
+                                { Color(ConfigManager.configOrException.valueTextColor) },
+                                { ConfigManager.configOrException.valueTextColor = it.rgb }
+                            )
+                            .controller { option ->
+                                ColorController(
+                                    option,
+                                    false
+                                )
+                            }.build(),
+                        Option.createBuilder(Boolean::class.java)
+                            .name(Text.translatable("option.tpshud.satisfyTpsCount"))
+                            .tooltip(Text.translatable("option.tpshud.satisfyTpsCount.tooltip"))
+                            .binding(
+                                true,
+                                { ConfigManager.configOrException.satisfyTpsCount },
+                                { ConfigManager.configOrException.satisfyTpsCount = it }
+                            )
+                            .controller { option ->
+                                BooleanController(
+                                    option,
+                                    BooleanController.YES_NO_FORMATTER,
+                                    true
+                                )
+                            }.build()
                     )
-                    .controller { option ->
-                        ColorController(
-                            option,
-                            false
-                        )
-                    }.build(),
-                Option.createBuilder(Color::class.java)
-                    .name(Text.translatable("option.tpshud.valueTextColor"))
-                    .binding(
-                        Color(8904424),
-                        { Color(ConfigManager.configOrException.valueTextColor) },
-                        { ConfigManager.configOrException.valueTextColor = it.rgb }
-                    )
-                    .controller { option ->
-                        ColorController(
-                            option,
-                            false
-                        )
-                    }.build(),
-                Option.createBuilder(Float::class.java)
-                    .name(Text.translatable("option.tpshud.scale"))
-                    .binding(
-                        1.0F,
-                        { ConfigManager.configOrException.scale },
-                        { ConfigManager.configOrException.scale = it }
-                    )
-                    .controller { option ->
-                        FloatSliderController(
-                            option,
-                            0.1F,
-                            5.0F,
-                            0.1F
-                        )
-                    }.build(),
+                ).build()
+            )
+            .group(OptionGroup.createBuilder()
+                .name(Text.translatable("category.style.group.background"))
+                .options(listOf(
                 Option.createBuilder(Color::class.java)
                     .name(Text.translatable("option.tpshud.backgroundColor"))
                     .binding(
@@ -128,23 +161,8 @@ object YACLConfigPlatform {
                             BooleanController.ON_OFF_FORMATTER,
                             true
                         )
-                    }.build(),
-                Option.createBuilder(Boolean::class.java)
-                    .name(Text.translatable("option.tpshud.satisfyTpsCount"))
-                    .tooltip(Text.translatable("option.tpshud.satisfyTpsCount.tooltip"))
-                    .binding(
-                        true,
-                        { ConfigManager.configOrException.satisfyTpsCount },
-                        { ConfigManager.configOrException.satisfyTpsCount = it }
-                    )
-                    .controller { option ->
-                        BooleanController(
-                            option,
-                            BooleanController.YES_NO_FORMATTER,
-                            true
-                        )
-                    }.build(),
-            ))
+                    }.build()
+            )).build())
         val networkingCategory = ConfigCategory.createBuilder()
             .name(Text.translatable("category.networking"))
             .tooltip(Text.translatable("category.networking.tooltip"))

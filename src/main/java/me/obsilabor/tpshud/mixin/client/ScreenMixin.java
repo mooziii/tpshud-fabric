@@ -31,6 +31,9 @@ public abstract class ScreenMixin extends AbstractParentElement implements Drawa
 
     @Inject(method = "render", at = @At("HEAD"))
     private void renderLivePreview(MatrixStack matrixStack, int i, int j, float f, CallbackInfo ci) {
+        //TODO add a live preview
+
+        /*
         if(title.toString().contains("title.tpshud.config")) {
             var window = client.getWindow();
             final var x = 8;
@@ -41,5 +44,6 @@ public abstract class ScreenMixin extends AbstractParentElement implements Drawa
             drawTexture(matrixStack, x, y, 0.0F, 0.0F, 300, 150, 300, 150);
             TpsWidget.INSTANCE.renderLivePreview(matrixStack, x+2, y+2);
         }
+         */
     }
 }
