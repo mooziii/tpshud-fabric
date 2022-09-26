@@ -11,9 +11,8 @@ A fully customizable mod for fabric that displays the servers tps **without havi
 
 * [fabric-api](https://modrinth.com/mod/fabric-api)
 * [fabric-language-kotlin](https://modrinth.com/mod/fabric-language-kotlin)
-* [cloth-config](https://modrinth.com/mod/cloth-config) (optional)
-* [modmenu](https://modrinth.com/mod/modmenu) (optional)
-* [silk](https://modrinth.com/mod/silk) (server side fabric)
+* [YetAnotherConfigLib](https://modrinth.com/mod/yacl) (optional)
+* [Mod Menu](https://modrinth.com/mod/modmenu) (optional)
 
 # Server Side Notes
 
@@ -22,4 +21,4 @@ The jars work on the following platforms:
 
 - Fabric
 - Quilt
-- Paper 
+- Paper (and Bukkit, Spigot, Purpur ...)
