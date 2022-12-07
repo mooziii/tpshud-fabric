@@ -30,9 +30,9 @@
     "tpshud.mixins.json"
   ],
   "depends": {
-    "fabric": "*",
+    "fabric-api": "*",
     "fabric-language-kotlin": "*",
-    "minecraft": "1.19.x"
+    "minecraft": ">=1.19.3"
   },
   "recommends": {
     "modmenu": ">=4.0.0",

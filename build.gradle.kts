@@ -3,22 +3,23 @@ import com.matthewprenger.cursegradle.CurseRelation
 import com.matthewprenger.cursegradle.Options
 
 plugins {
-    kotlin("jvm") version "1.7.10"
-    kotlin("plugin.serialization") version "1.7.10"
-    id("fabric-loom") version "0.12-SNAPSHOT"
+    kotlin("jvm") version "1.7.22"
+    kotlin("plugin.serialization") version "1.7.22"
+    id("fabric-loom") version "1.0-SNAPSHOT"
     id("com.modrinth.minotaur") version "2.+"
     id("com.matthewprenger.cursegradle") version "1.4.0"
     id("java")
 }
 
 group = "me.obsilabor"
-version = "1.6.0+1.19.2"
+version = "1.6.1+1.19.3"
 
 repositories {
     mavenCentral()
     maven("https://maven.terraformersmc.com")
     maven("https://repo.papermc.io/repository/maven-public/")
     maven("https://maven.isxander.dev/releases")
+    maven("https://api.modrinth.com/maven")
 }
 
 dependencies {
@@ -34,17 +35,15 @@ dependencies {
      */
     compileOnly("io.papermc.paper:paper-api:1.19.2-R0.1-SNAPSHOT")
     // fabric
-    minecraft("com.mojang:minecraft:1.19.2")
-    mappings("net.fabricmc:yarn:1.19.2+build.1")
-    modImplementation("net.fabricmc:fabric-loader:0.14.9")
-    modImplementation("net.fabricmc:fabric-language-kotlin:1.8.3+kotlin.1.7.10")
-    modImplementation("net.fabricmc.fabric-api:fabric-api:0.61.0+1.19.2")
+    minecraft("com.mojang:minecraft:1.19.3")
+    mappings("net.fabricmc:yarn:1.19.3+build.1")
+    modImplementation("net.fabricmc:fabric-loader:0.14.11")
+    modImplementation("net.fabricmc:fabric-language-kotlin:1.8.7+kotlin.1.7.22")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:0.68.1+1.19.3")
     // modmenu
-    modApi("com.terraformersmc:modmenu:4.0.6") {
-        exclude("net.fabricmc.fabric-api")
-    }
+    modApi("maven.modrinth:modmenu:5.0.0-alpha.4")
     // yacl
-    modImplementation("dev.isxander:yet-another-config-lib:1.5.0")
+    modImplementation("dev.isxander:yet-another-config-lib:2.0.0")
 }
 
 tasks {
@@ -80,7 +79,7 @@ modrinth {
     projectId.set("tps-hud")
     versionNumber.set(project.version.toString())
     versionType.set("release")
-    gameVersions.addAll(listOf("1.19.2"))
+    gameVersions.addAll(listOf("1.19.3"))
     loaders.add("fabric")
     loaders.add("quilt")
     loaders.add("purpur")
@@ -103,7 +102,7 @@ curseforge {
 
         id = "610618"
         releaseType = "release"
-        addGameVersion("1.19.2")
+        addGameVersion("1.19.3")
         addGameVersion("Fabric")
         addGameVersion("Quilt")
 

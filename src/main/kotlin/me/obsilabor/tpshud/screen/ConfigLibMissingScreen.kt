@@ -11,7 +11,7 @@ import java.io.File
 // Abusing minecraft's ConfirmScreen so I don't have to create my own one
 class ConfigLibMissingScreen : ConfirmScreen(
     BooleanConsumer {
-        var url = when(it) {
+        val url = when(it) {
             true -> "https://modrinth.com/mod/yacl"
             false -> "https://www.curseforge.com/minecraft/mc-mods/yacl"
         }
@@ -25,11 +25,16 @@ class ConfigLibMissingScreen : ConfirmScreen(
 ) {
     override fun addButtons(i: Int) {
         super.addButtons(i)
-        addButton(ButtonWidget(
-            width / 2 - 155, i+25, 150, 20, Text.translatable("screen.configLibMissing.openFolder")
-        ) { Util.getOperatingSystem().open(File("mods")) })
-        addButton(ButtonWidget(
-            width / 2 - 155 + 160, i+25, 150, 20, Text.translatable("screen.configLibMissing.close")
-        ) { minecraft.setScreen(null) })
+        addButton(
+            ButtonWidget.builder(Text.translatable("screen.configLibMissing.openFolder")) {
+                minecraft.setScreen(null)
+            }.position(width / 2 - 155, i+25).size(150, 20).build()
+        )
+
+        addButton(
+            ButtonWidget.builder(Text.translatable("screen.configLibMissing.close")) {
+                Util.getOperatingSystem().open(File("mods"))
+            }.position(width / 2 + 5, i+25).size(150, 20).build()
+        )
     }
 }

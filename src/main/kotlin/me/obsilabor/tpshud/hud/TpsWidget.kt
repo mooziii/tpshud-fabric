@@ -3,12 +3,11 @@ package me.obsilabor.tpshud.hud
 import com.mojang.blaze3d.systems.RenderSystem
 import me.obsilabor.tpshud.TpsTracker
 import me.obsilabor.tpshud.config.ConfigManager
-import me.obsilabor.tpshud.config.TpsHudConfig
 import me.obsilabor.tpshud.minecraft
 import net.minecraft.client.gui.DrawableHelper
 import net.minecraft.client.render.*
 import net.minecraft.client.util.math.MatrixStack
-import net.minecraft.util.math.Matrix4f
+import org.joml.Matrix4f
 
 object TpsWidget : DrawableHelper() {
     fun render(matrices: MatrixStack) {
@@ -78,7 +77,7 @@ object TpsWidget : DrawableHelper() {
         val b = (color and 255).toFloat() / 255.0f
         val var10000 = Tessellator.getInstance()
         val bufferBuilder = var10000.buffer
-        RenderSystem.setShader { GameRenderer.getPositionColorShader() }
+        RenderSystem.setShader { GameRenderer.getPositionTexProgram() }
         RenderSystem.enableBlend()
         RenderSystem.disableTexture()
         RenderSystem.defaultBlendFunc()
@@ -88,7 +87,7 @@ object TpsWidget : DrawableHelper() {
         bufferBuilder.vertex(matrix, x2, y1, 0.0f).color(r, g, b, alpha).next()
         bufferBuilder.vertex(matrix, x1, y1, 0.0f).color(r, g, b, alpha).next()
         val buffer = bufferBuilder.end()
-        BufferRenderer.drawWithShader(buffer)
+        BufferRenderer.drawWithGlobalProgram(buffer)
         RenderSystem.enableTexture()
         RenderSystem.disableBlend()
     }
