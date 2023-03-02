@@ -6,4 +6,4 @@ version: ${version}
 author: mooziii
 website: "https://github.com/mooziii/tpshud-fabric"
 libraries:
-  - org.jetbrains.kotlin:kotlin-stdlib:1.7.10
+  - org.jetbrains.kotlin:kotlin-stdlib:1.8.10

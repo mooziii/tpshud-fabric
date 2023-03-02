@@ -3,16 +3,16 @@ import com.matthewprenger.cursegradle.CurseRelation
 import com.matthewprenger.cursegradle.Options
 
 plugins {
-    kotlin("jvm") version "1.7.22"
-    kotlin("plugin.serialization") version "1.7.22"
-    id("fabric-loom") version "1.0-SNAPSHOT"
+    kotlin("jvm") version "1.8.0"
+    kotlin("plugin.serialization") version "1.8.10"
+    id("fabric-loom") version "1.1-SNAPSHOT"
     id("com.modrinth.minotaur") version "2.+"
     id("com.matthewprenger.cursegradle") version "1.4.0"
     id("java")
 }
 
 group = "me.obsilabor"
-version = "1.6.1+1.19.3"
+version = "1.6.2+1.19.3"
 
 repositories {
     mavenCentral()
@@ -33,17 +33,17 @@ dependencies {
      * I'm not using userdev here because I think it would cause issues together with loom.
      * Additionally, I don't use any NMS specific functions or classes
      */
-    compileOnly("io.papermc.paper:paper-api:1.19.2-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.19.3-R0.1-SNAPSHOT")
     // fabric
     minecraft("com.mojang:minecraft:1.19.3")
-    mappings("net.fabricmc:yarn:1.19.3+build.1")
+    mappings("net.fabricmc:yarn:1.19.3+build.5")
     modImplementation("net.fabricmc:fabric-loader:0.14.11")
-    modImplementation("net.fabricmc:fabric-language-kotlin:1.8.7+kotlin.1.7.22")
-    modImplementation("net.fabricmc.fabric-api:fabric-api:0.68.1+1.19.3")
+    modImplementation("net.fabricmc:fabric-language-kotlin:1.9.1+kotlin.1.8.10")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:0.75.1+1.19.3")
     // modmenu
-    modApi("maven.modrinth:modmenu:5.0.0-alpha.4")
+    modApi("maven.modrinth:modmenu:5.0.2")
     // yacl
-    modImplementation("dev.isxander:yet-another-config-lib:2.0.0")
+    modImplementation("dev.isxander:yet-another-config-lib:2.2.0")
 }
 
 tasks {
