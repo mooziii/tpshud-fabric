@@ -3,7 +3,7 @@ import com.matthewprenger.cursegradle.CurseRelation
 import com.matthewprenger.cursegradle.Options
 
 plugins {
-    kotlin("jvm") version "1.8.0"
+    kotlin("jvm") version "1.8.10"
     kotlin("plugin.serialization") version "1.8.10"
     id("fabric-loom") version "1.1-SNAPSHOT"
     id("com.modrinth.minotaur") version "2.+"
