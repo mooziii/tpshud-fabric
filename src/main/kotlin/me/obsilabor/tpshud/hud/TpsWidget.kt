@@ -1,5 +1,6 @@
 package me.obsilabor.tpshud.hud
 
+import com.mojang.blaze3d.platform.GlStateManager
 import com.mojang.blaze3d.systems.RenderSystem
 import me.obsilabor.tpshud.TpsTracker
 import me.obsilabor.tpshud.config.ConfigManager
@@ -20,12 +21,13 @@ object TpsWidget : DrawableHelper() {
             fillBackground(matrices, config.x.toFloat(), config.y.toFloat(), config.x+width.toFloat(), config.y+minecraft.textRenderer.fontHeight+1f, config.backgroundColor, config.backgroundOpacity)
             RenderSystem.enableDepthTest()
         }
-        val widthPartOne = minecraft.textRenderer.getWidth("TPS: ")
+        val text = ConfigManager.config?.text ?: "TPS: "
+        val widthPartOne = minecraft.textRenderer.getWidth(text)
         if(config.textShadow) {
-            minecraft.textRenderer.drawWithShadow(matrices, "TPS: ", config.x.toFloat(), config.y.toFloat(), config.textColor)
+            minecraft.textRenderer.drawWithShadow(matrices, text, config.x.toFloat(), config.y.toFloat(), config.textColor)
             minecraft.textRenderer.drawWithShadow(matrices, removeDot(TpsTracker.INSTANCE.tickRate), config.x+widthPartOne.toFloat(), config.y.toFloat(), config.valueTextColor)+1
         } else {
-            minecraft.textRenderer.draw(matrices, "TPS: ", config.x.toFloat(), config.y.toFloat(), config.textColor)
+            minecraft.textRenderer.draw(matrices, text, config.x.toFloat(), config.y.toFloat(), config.textColor)
             minecraft.textRenderer.draw(matrices, removeDot(TpsTracker.INSTANCE.tickRate), config.x+widthPartOne.toFloat(), config.y.toFloat(), config.valueTextColor)+1
         }
         matrices.pop()
@@ -41,12 +43,13 @@ object TpsWidget : DrawableHelper() {
             fillBackground(matrices,x.toFloat(), y.toFloat(), x+width.toFloat()+7f, y+ minecraft.textRenderer.fontHeight+1f, config.backgroundColor, config.backgroundOpacity)
             RenderSystem.enableDepthTest()
         }
-        val widthPartOne = minecraft.textRenderer.getWidth("TPS: ")
+        val text = ConfigManager.config?.text ?: "TPS: "
+        val widthPartOne = minecraft.textRenderer.getWidth(text)
         if(config.textShadow) {
-            minecraft.textRenderer.drawWithShadow(matrices, "TPS: ", x.toFloat(), y.toFloat(), config.textColor)
+            minecraft.textRenderer.drawWithShadow(matrices, text, x.toFloat(), y.toFloat(), config.textColor)
             minecraft.textRenderer.drawWithShadow(matrices, removeDot(19.89F), x+widthPartOne.toFloat(), y.toFloat(), config.valueTextColor)+1
         } else {
-            minecraft.textRenderer.draw(matrices, "TPS: ", x.toFloat(), y.toFloat(), config.textColor)
+            minecraft.textRenderer.draw(matrices, text, x.toFloat(), y.toFloat(), config.textColor)
             minecraft.textRenderer.draw(matrices, removeDot(19.89F), x+widthPartOne.toFloat(), y.toFloat(), config.valueTextColor)+1
         }
         matrices.pop()
@@ -68,6 +71,7 @@ object TpsWidget : DrawableHelper() {
         get() = minecraft.textRenderer.getWidth("TPS: ")+minecraft.textRenderer.getWidth(removeDot(TpsTracker.INSTANCE.tickRate))
 
     private fun fillBackground(matrices: MatrixStack, x1: Float, y1: Float, x2: Float, y2: Float, color: Int, alpha: Float) {
+        return // Doesn't work / only works without alpha / looks ugly - Due to removal of RenderSystem.disableTexture
         fill(matrices.peek().positionMatrix, x1, y1, x2, y2, color, alpha)
     }
 
@@ -79,7 +83,7 @@ object TpsWidget : DrawableHelper() {
         val bufferBuilder = var10000.buffer
         RenderSystem.setShader { GameRenderer.getPositionTexProgram() }
         RenderSystem.enableBlend()
-        RenderSystem.disableTexture()
+        //RenderSystem.disableTexture()
         RenderSystem.defaultBlendFunc()
         bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR)
         bufferBuilder.vertex(matrix, x1, y2, 0.0f).color(r, g, b, alpha).next()
@@ -88,7 +92,8 @@ object TpsWidget : DrawableHelper() {
         bufferBuilder.vertex(matrix, x1, y1, 0.0f).color(r, g, b, alpha).next()
         val buffer = bufferBuilder.end()
         BufferRenderer.drawWithGlobalProgram(buffer)
-        RenderSystem.enableTexture()
+        //RenderSystem.enableTexture()
         RenderSystem.disableBlend()
     }
+
 }

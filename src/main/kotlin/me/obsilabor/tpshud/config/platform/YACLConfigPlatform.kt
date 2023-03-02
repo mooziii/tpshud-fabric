@@ -9,6 +9,7 @@ import dev.isxander.yacl.gui.controllers.ActionController
 import dev.isxander.yacl.gui.controllers.BooleanController
 import dev.isxander.yacl.gui.controllers.ColorController
 import dev.isxander.yacl.gui.controllers.slider.FloatSliderController
+import dev.isxander.yacl.gui.controllers.string.StringController
 import me.obsilabor.tpshud.config.ConfigManager
 import me.obsilabor.tpshud.minecraft
 import me.obsilabor.tpshud.screen.PositionSelectionScreen
@@ -45,8 +46,8 @@ object YACLConfigPlatform {
                         ButtonOption.createBuilder()
                             .name(Text.translatable("option.tpshud.dragHud"))
                             .tooltip(Text.translatable("option.tpshud.dragHud.tooltip"))
-                            .action { parent, _ ->
-                                minecraft.setScreen(PositionSelectionScreen(parent))
+                            .action { settingsScreen, _ ->
+                                minecraft.setScreen(PositionSelectionScreen(settingsScreen))
                             }
                             .controller { ActionController(it) }
                             .build(),
@@ -112,6 +113,19 @@ object YACLConfigPlatform {
                                     option,
                                     BooleanController.YES_NO_FORMATTER,
                                     true
+                                )
+                            }.build(),
+                        Option.createBuilder(String::class.java)
+                            .name(Text.translatable("option.tpshud.customText"))
+                            .tooltip(Text.translatable("option.tpshud.customText.tooltip"))
+                            .binding(
+                                "TPS: ",
+                                { ConfigManager.configOrException.text },
+                                { ConfigManager.configOrException.text = it }
+                            )
+                            .controller { option ->
+                                StringController(
+                                    option
                                 )
                             }.build()
                     )

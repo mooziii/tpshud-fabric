@@ -15,8 +15,10 @@ public class InGameHudMixin {
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;renderStatusEffectOverlay(Lnet/minecraft/client/util/math/MatrixStack;)V"))
     private void renderTpsHud(MatrixStack matrices, float f, CallbackInfo ci) {
         if(!(MinecraftClient.getInstance().currentScreen instanceof PositionSelectionScreen)) {
-            MatrixStack matrixStack = new MatrixStack();
-            TpsWidget.INSTANCE.render(matrixStack);
+            //MatrixStack matrixStack = new MatrixStack();
+            matrices.push();
+            TpsWidget.INSTANCE.render(matrices);
+            matrices.pop();
         }
     }
 }

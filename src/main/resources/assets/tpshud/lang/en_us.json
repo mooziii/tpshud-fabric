@@ -37,5 +37,7 @@
   "option.tpshud.useServerProvidedData.tooltip1": "If enabled, the tps display will be way more accurate as it uses data provided by the server directly",
   "option.tpshud.useServerProvidedData.tooltip2": "However, the server must also install tpshud for this option to work.",
   "option.tpshud.showCompatibilityToast": "Show Compatibility Toast",
-  "option.tpshud.showCompatibilityToast.tooltip": "If this is enabled, a notification will be displayed if the server you're playing on supports tpshud."
+  "option.tpshud.showCompatibilityToast.tooltip": "If this is enabled, a notification will be displayed if the server you're playing on supports tpshud.",
+  "option.tpshud.customText": "Text",
+  "option.tpshud.customText.tooltip": "The text that will be displayed before the actual TPS"
 }

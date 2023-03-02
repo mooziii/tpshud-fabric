@@ -17,7 +17,8 @@ data class TpsHudConfig(
     var textShadow: Boolean = true,
     var useServerProvidedData: Boolean? = true,
     var askedForServerProvidedData: Boolean? = false,
-    var showCompatibilityToast: Boolean? = true
+    var showCompatibilityToast: Boolean? = true,
+    var text: String = "TPS:"
 ) {
     companion object {
         val DEFAULT = TpsHudConfig(
@@ -34,7 +35,8 @@ data class TpsHudConfig(
             true,
             true,
             false,
-            true
+            true,
+            "TPS:"
         )
     }
 }

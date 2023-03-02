@@ -35,7 +35,9 @@ public abstract class ScreenMixin extends AbstractParentElement implements Drawa
             RenderSystem.setShaderTexture(0, LIVE_PREVIEW_TEXTURE);
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
             drawTexture(matrixStack, x, y, 0.0F, 0.0F, 300, 150, 300, 150);
+            matrixStack.push();
             TpsWidget.INSTANCE.renderLivePreview(matrixStack, x+2, y+2);
+            matrixStack.pop();
         }
     }
 }
