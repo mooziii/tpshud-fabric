@@ -12,13 +12,13 @@ plugins {
 }
 
 group = "me.obsilabor"
-version = "1.6.3+1.19.4"
+version = "1.6.4+1.19.4"
 
 repositories {
     mavenCentral()
     maven("https://maven.terraformersmc.com")
     maven("https://repo.papermc.io/repository/maven-public/")
-    maven("https://maven.isxander.dev/snapshots")
+    maven("https://maven.isxander.dev/releases")
     maven("https://api.modrinth.com/maven")
 }
 
@@ -33,18 +33,17 @@ dependencies {
      * I'm not using userdev here because I think it would cause issues together with loom.
      * Additionally, I don't use any NMS specific functions or classes
      */
-    compileOnly("io.papermc.paper:paper-api:1.19.3-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.19.4-R0.1-SNAPSHOT")
     // fabric
-    minecraft("com.mojang:minecraft:1.19.4-pre3")
-    mappings("net.fabricmc:yarn:1.19.4-pre3+build.1")
+    minecraft("com.mojang:minecraft:1.19.4")
+    mappings("net.fabricmc:yarn:1.19.4+build.1")
     modImplementation("net.fabricmc:fabric-loader:0.14.11")
-    modImplementation("net.fabricmc:fabric-language-kotlin:1.9.1+kotlin.1.8.10")
-    modImplementation("net.fabricmc.fabric-api:fabric-api:0.75.2+1.19.4")
+    modImplementation("net.fabricmc:fabric-language-kotlin:1.9.2+kotlin.1.8.10")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:0.76.0+1.19.4")
     // modmenu
     modApi("maven.modrinth:modmenu:6.1.0-beta.3")
     // yacl
-    //modImplementation("dev.isxander:yet-another-config-lib:2.3.0+beta.3+update.1.19.4-20230222.214402-1") xd
-    modImplementation("dev.isxander:yet-another-config-lib:2.3.0+beta.3+update.1.19.4-SNAPSHOT")
+    modImplementation("dev.isxander:yet-another-config-lib:2.3.0")
 }
 
 tasks {
@@ -80,7 +79,7 @@ modrinth {
     projectId.set("tps-hud")
     versionNumber.set(project.version.toString())
     versionType.set("release")
-    gameVersions.addAll(listOf("1.19.4-pre3"))
+    gameVersions.addAll(listOf("1.19.4"))
     loaders.add("fabric")
     loaders.add("quilt")
     loaders.add("purpur")
@@ -103,7 +102,7 @@ curseforge {
 
         id = "610618"
         releaseType = "release"
-        addGameVersion("1.19-Snapshot")
+        addGameVersion("1.19.4")
         addGameVersion("Fabric")
         addGameVersion("Quilt")
 
