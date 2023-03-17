@@ -27,13 +27,13 @@ class ConfigLibMissingScreen : ConfirmScreen(
         super.addButtons(i)
         addButton(
             ButtonWidget.builder(Text.translatable("screen.configLibMissing.openFolder")) {
-                minecraft.setScreen(null)
+                Util.getOperatingSystem().open(File("mods"))
             }.position(width / 2 - 155, i+25).size(150, 20).build()
         )
 
         addButton(
             ButtonWidget.builder(Text.translatable("screen.configLibMissing.close")) {
-                Util.getOperatingSystem().open(File("mods"))
+                minecraft.setScreen(null)
             }.position(width / 2 + 5, i+25).size(150, 20).build()
         )
     }
