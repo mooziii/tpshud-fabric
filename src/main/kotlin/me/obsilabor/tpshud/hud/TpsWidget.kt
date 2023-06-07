@@ -1,58 +1,51 @@
+@file:Suppress("unused", "UNUSED_PARAMETER")
+
 package me.obsilabor.tpshud.hud
 
-import com.mojang.blaze3d.platform.GlStateManager
 import com.mojang.blaze3d.systems.RenderSystem
 import me.obsilabor.tpshud.TpsTracker
 import me.obsilabor.tpshud.config.ConfigManager
 import me.obsilabor.tpshud.minecraft
-import net.minecraft.client.gui.DrawableHelper
+import net.minecraft.client.gui.DrawContext
 import net.minecraft.client.render.*
 import net.minecraft.client.util.math.MatrixStack
 import org.joml.Matrix4f
+import java.awt.Color
+import kotlin.math.roundToInt
 
-object TpsWidget : DrawableHelper() {
-    fun render(matrices: MatrixStack) {
+object TpsWidget {
+    fun render(context: DrawContext) {
         val config = ConfigManager.config ?: return
         if(!config.isEnabled) return
-        matrices.push()
-        matrices.scale(ConfigManager.config?.scale?:1f, ConfigManager.config?.scale?:1f, 0f)
+        context.matrices.push()
+        context.matrices.scale(ConfigManager.config?.scale?:1f, ConfigManager.config?.scale?:1f, 0f)
         if(config.backgroundEnabled) {
             RenderSystem.disableDepthTest()
-            fillBackground(matrices, config.x.toFloat(), config.y.toFloat(), config.x+width.toFloat(), config.y+minecraft.textRenderer.fontHeight+1f, config.backgroundColor, config.backgroundOpacity)
+            fillBackground(context, config.x.toFloat(), config.y.toFloat(), config.x+width.toFloat(), config.y+minecraft.textRenderer.fontHeight+1f, config.backgroundColor, config.backgroundOpacity)
             RenderSystem.enableDepthTest()
         }
         val text = ConfigManager.config?.text ?: "TPS: "
         val widthPartOne = minecraft.textRenderer.getWidth(text)
-        if(config.textShadow) {
-            minecraft.textRenderer.drawWithShadow(matrices, text, config.x.toFloat(), config.y.toFloat(), config.textColor)
-            minecraft.textRenderer.drawWithShadow(matrices, removeDot(TpsTracker.INSTANCE.tickRate), config.x+widthPartOne.toFloat(), config.y.toFloat(), config.valueTextColor)+1
-        } else {
-            minecraft.textRenderer.draw(matrices, text, config.x.toFloat(), config.y.toFloat(), config.textColor)
-            minecraft.textRenderer.draw(matrices, removeDot(TpsTracker.INSTANCE.tickRate), config.x+widthPartOne.toFloat(), config.y.toFloat(), config.valueTextColor)+1
-        }
-        matrices.pop()
+        context.drawText(minecraft.textRenderer, text, config.x, config.y, config.textColor, config.textShadow)
+        context.drawText(minecraft.textRenderer, removeDot(TpsTracker.INSTANCE.tickRate), config.x+widthPartOne, config.y, config.valueTextColor, config.textShadow)
+        context.matrices.pop()
     }
 
-    fun renderLivePreview(matrices: MatrixStack, x: Int, y: Int) {
+    fun renderLivePreview(context: DrawContext, x: Int, y: Int) {
         val config = ConfigManager.config ?: return
         if(!config.isEnabled) return
-        matrices.push()
-        matrices.scale(ConfigManager.config?.scale?:1f, ConfigManager.config?.scale?:1f, 0f)
+        context.matrices.push()
+        context.matrices.scale(ConfigManager.config?.scale?:1f, ConfigManager.config?.scale?:1f, 0f)
         if(config.backgroundEnabled) {
             RenderSystem.disableDepthTest()
-            fillBackground(matrices,x.toFloat(), y.toFloat(), x+width.toFloat()+7f, y+ minecraft.textRenderer.fontHeight+1f, config.backgroundColor, config.backgroundOpacity)
+            fillBackground(context, x.toFloat(), y.toFloat(), x+width.toFloat()+7f, y+ minecraft.textRenderer.fontHeight+1f, config.backgroundColor, config.backgroundOpacity)
             RenderSystem.enableDepthTest()
         }
         val text = ConfigManager.config?.text ?: "TPS: "
         val widthPartOne = minecraft.textRenderer.getWidth(text)
-        if(config.textShadow) {
-            minecraft.textRenderer.drawWithShadow(matrices, text, x.toFloat(), y.toFloat(), config.textColor)
-            minecraft.textRenderer.drawWithShadow(matrices, removeDot(19.89F), x+widthPartOne.toFloat(), y.toFloat(), config.valueTextColor)+1
-        } else {
-            minecraft.textRenderer.draw(matrices, text, x.toFloat(), y.toFloat(), config.textColor)
-            minecraft.textRenderer.draw(matrices, removeDot(19.89F), x+widthPartOne.toFloat(), y.toFloat(), config.valueTextColor)+1
-        }
-        matrices.pop()
+        context.drawText(minecraft.textRenderer, text, x, y, config.textColor, config.textShadow)
+        context.drawText(minecraft.textRenderer, removeDot(19.89f), x+widthPartOne, y, config.valueTextColor, config.textShadow)
+        context.matrices.pop()
     }
 
     private fun removeDot(tps: Float): String {
@@ -68,11 +61,13 @@ object TpsWidget : DrawableHelper() {
     }
 
     val width: Int
-        get() = minecraft.textRenderer.getWidth("TPS: ")+minecraft.textRenderer.getWidth(removeDot(TpsTracker.INSTANCE.tickRate))
+        get() = minecraft.textRenderer.getWidth(ConfigManager.config?.text ?: "TPS: ")+minecraft.textRenderer.getWidth(removeDot(TpsTracker.INSTANCE.tickRate))
 
-    private fun fillBackground(matrices: MatrixStack, x1: Float, y1: Float, x2: Float, y2: Float, color: Int, alpha: Float) {
-        return // Doesn't work / only works without alpha / looks ugly - Due to removal of RenderSystem.disableTexture
-        fill(matrices.peek().positionMatrix, x1, y1, x2, y2, color, alpha)
+    private fun fillBackground(drawContext: DrawContext, x1: Float, y1: Float, x2: Float, y2: Float, color: Int, alpha: Float) {
+        // Doesn't work / only works without alpha / looks ugly - Due to removal of RenderSystem.disableTexture
+        //fill(matrices.peek().positionMatrix, x1, y1, x2, y2, color, alpha)
+        val rgb = Color(color)
+        drawContext.fill(x1.toInt(), y1.toInt(), x2.toInt(), y2.toInt(), Color(rgb.red, rgb.blue, rgb.green, (alpha*255).roundToInt()).rgb)
     }
 
     private fun fill(matrix: Matrix4f, x1: Float, y1: Float, x2: Float, y2: Float, color: Int, alpha: Float) {

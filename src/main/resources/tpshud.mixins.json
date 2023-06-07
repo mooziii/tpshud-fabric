@@ -6,8 +6,7 @@
   "client": [
     "client.ClientConnectionMixin",
     "client.ClientPlayNetworkHandlerMixin",
-    "client.InGameHudMixin",
-    "client.ScreenMixin"
+    "client.InGameHudMixin"
   ],
   "server": [
     "server.MinecraftServerMixin"

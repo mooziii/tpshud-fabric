@@ -1,15 +1,11 @@
 package me.obsilabor.tpshud.config.platform
 
-import dev.isxander.yacl.api.ButtonOption
-import dev.isxander.yacl.api.ConfigCategory
-import dev.isxander.yacl.api.Option
-import dev.isxander.yacl.api.OptionGroup
-import dev.isxander.yacl.api.YetAnotherConfigLib
-import dev.isxander.yacl.gui.controllers.ActionController
-import dev.isxander.yacl.gui.controllers.BooleanController
-import dev.isxander.yacl.gui.controllers.ColorController
-import dev.isxander.yacl.gui.controllers.slider.FloatSliderController
-import dev.isxander.yacl.gui.controllers.string.StringController
+import dev.isxander.yacl3.api.*
+import dev.isxander.yacl3.api.controller.BooleanControllerBuilder
+import dev.isxander.yacl3.api.controller.ColorControllerBuilder
+import dev.isxander.yacl3.api.controller.FloatSliderControllerBuilder
+import dev.isxander.yacl3.api.controller.StringControllerBuilder
+import dev.isxander.yacl3.gui.controllers.ColorController
 import me.obsilabor.tpshud.config.ConfigManager
 import me.obsilabor.tpshud.minecraft
 import me.obsilabor.tpshud.screen.PositionSelectionScreen
@@ -29,7 +25,7 @@ object YACLConfigPlatform {
                 .name(Text.translatable("category.style.group.appearance"))
                 .options(
                     listOf(
-                        Option.createBuilder(Boolean::class.java)
+                        Option.createBuilder<Boolean>()
                             .name(Text.translatable("option.tpshud.enabled"))
                             .binding(
                                 true,
@@ -37,22 +33,17 @@ object YACLConfigPlatform {
                                 { ConfigManager.configOrException.isEnabled = it }
                             )
                             .controller { option ->
-                                BooleanController(
-                                    option,
-                                    BooleanController.YES_NO_FORMATTER,
-                                    true
-                                )
+                                BooleanControllerBuilder.create(option).yesNoFormatter().coloured(true)
                             }.build(),
                         ButtonOption.createBuilder()
                             .name(Text.translatable("option.tpshud.dragHud"))
-                            .tooltip(Text.translatable("option.tpshud.dragHud.tooltip"))
+                            .description(OptionDescription.of(Text.translatable("option.tpshud.dragHud.tooltip")))
                             .action { settingsScreen, _ ->
                                 minecraft.setScreen(PositionSelectionScreen(settingsScreen))
                             }
-                            .controller { ActionController(it) }
                             .build(),
 
-                        Option.createBuilder(Float::class.java)
+                        Option.createBuilder<Float>()
                             .name(Text.translatable("option.tpshud.scale"))
                             .binding(
                                 1.0F,
@@ -60,12 +51,7 @@ object YACLConfigPlatform {
                                 { ConfigManager.configOrException.scale = it }
                             )
                             .controller { option ->
-                                FloatSliderController(
-                                    option,
-                                    0.1F,
-                                    5.0F,
-                                    0.1F
-                                )
+                                FloatSliderControllerBuilder.create(option).range(0.1F, 5.0F).step(0.1F)
                             }.build()
                     )
                 ).build()
@@ -74,7 +60,7 @@ object YACLConfigPlatform {
                 .name(Text.translatable("category.style.group.text"))
                 .options(
                     listOf(
-                        Option.createBuilder(Color::class.java)
+                        Option.createBuilder<Color>()
                             .name(Text.translatable("option.tpshud.textColor"))
                             .binding(
                                 Color(16777215),
@@ -86,8 +72,9 @@ object YACLConfigPlatform {
                                     option,
                                     false
                                 )
+                                ColorControllerBuilder.create(option).allowAlpha(false)
                             }.build(),
-                        Option.createBuilder(Color::class.java)
+                        Option.createBuilder<Color>()
                             .name(Text.translatable("option.tpshud.valueTextColor"))
                             .binding(
                                 Color(8904424),
@@ -95,38 +82,29 @@ object YACLConfigPlatform {
                                 { ConfigManager.configOrException.valueTextColor = it.rgb }
                             )
                             .controller { option ->
-                                ColorController(
-                                    option,
-                                    false
-                                )
+                                ColorControllerBuilder.create(option).allowAlpha(false)
                             }.build(),
-                        Option.createBuilder(Boolean::class.java)
+                        Option.createBuilder<Boolean>()
                             .name(Text.translatable("option.tpshud.satisfyTpsCount"))
-                            .tooltip(Text.translatable("option.tpshud.satisfyTpsCount.tooltip"))
+                            .description(OptionDescription.of(Text.translatable("option.tpshud.satisfyTpsCount.tooltip")))
                             .binding(
                                 true,
                                 { ConfigManager.configOrException.satisfyTpsCount },
                                 { ConfigManager.configOrException.satisfyTpsCount = it }
                             )
                             .controller { option ->
-                                BooleanController(
-                                    option,
-                                    BooleanController.YES_NO_FORMATTER,
-                                    true
-                                )
+                                BooleanControllerBuilder.create(option).yesNoFormatter().coloured(true)
                             }.build(),
-                        Option.createBuilder(String::class.java)
+                        Option.createBuilder<String>()
                             .name(Text.translatable("option.tpshud.customText"))
-                            .tooltip(Text.translatable("option.tpshud.customText.tooltip"))
+                            .description(OptionDescription.of(Text.translatable("option.tpshud.customText.tooltip")))
                             .binding(
                                 "TPS: ",
                                 { ConfigManager.configOrException.text },
                                 { ConfigManager.configOrException.text = it }
                             )
                             .controller { option ->
-                                StringController(
-                                    option
-                                )
+                                StringControllerBuilder.create(option)
                             }.build()
                     )
                 ).build()
@@ -134,7 +112,7 @@ object YACLConfigPlatform {
             .group(OptionGroup.createBuilder()
                 .name(Text.translatable("category.style.group.background"))
                 .options(listOf(
-                Option.createBuilder(Color::class.java)
+                Option.createBuilder<Color>()
                     .name(Text.translatable("option.tpshud.backgroundColor"))
                     .binding(
                         Color(16777215),
@@ -142,12 +120,9 @@ object YACLConfigPlatform {
                         { ConfigManager.configOrException.backgroundColor = it.rgb }
                     )
                     .controller { option ->
-                        ColorController(
-                            option,
-                            false
-                        )
+                        ColorControllerBuilder.create(option).allowAlpha(false)
                     }.build(),
-                Option.createBuilder(Float::class.java)
+                Option.createBuilder<Float>()
                     .name(Text.translatable("option.tpshud.backgroundOpacity"))
                     .binding(
                         0.5F,
@@ -155,14 +130,9 @@ object YACLConfigPlatform {
                         { ConfigManager.configOrException.backgroundOpacity = it }
                     )
                     .controller { option ->
-                        FloatSliderController(
-                            option,
-                            0.1F,
-                            1.0F,
-                            0.1F
-                        )
+                        FloatSliderControllerBuilder.create(option).range(0.1F, 1.0F).step(0.1F)
                     }.build(),
-                Option.createBuilder(Boolean::class.java)
+                Option.createBuilder<Boolean>()
                     .name(Text.translatable("option.tpshud.backgroundEnabled"))
                     .binding(
                         true,
@@ -170,46 +140,34 @@ object YACLConfigPlatform {
                         { ConfigManager.configOrException.backgroundEnabled = it }
                     )
                     .controller { option ->
-                        BooleanController(
-                            option,
-                            BooleanController.ON_OFF_FORMATTER,
-                            true
-                        )
+                        BooleanControllerBuilder.create(option).yesNoFormatter().coloured(true)
                     }.build()
             )).build())
         val networkingCategory = ConfigCategory.createBuilder()
             .name(Text.translatable("category.networking"))
             .tooltip(Text.translatable("category.networking.tooltip"))
             .options(listOf(
-                Option.createBuilder(Boolean::class.java)
+                Option.createBuilder<Boolean>()
                     .name(Text.translatable("option.tpshud.useServerProvidedData"))
-                    .tooltip(Text.translatable("option.tpshud.useServerProvidedData.tooltip1"), Text.translatable("option.tpshud.useServerProvidedData.tooltip2"))
+                    .description(OptionDescription.of(Text.translatable("option.tpshud.useServerProvidedData.tooltip1"), Text.translatable("option.tpshud.useServerProvidedData.tooltip2")))
                     .binding(
                         true,
                         { ConfigManager.configOrException.useServerProvidedData ?: true },
                         { ConfigManager.configOrException.useServerProvidedData = it }
                     )
                     .controller { option ->
-                        BooleanController(
-                            option,
-                            BooleanController.YES_NO_FORMATTER,
-                            true
-                        )
+                        BooleanControllerBuilder.create(option).yesNoFormatter().coloured(true)
                     }.build(),
-                Option.createBuilder(Boolean::class.java)
+                Option.createBuilder<Boolean>()
                     .name(Text.translatable("option.tpshud.showCompatibilityToast"))
-                    .tooltip(Text.translatable("option.tpshud.showCompatibilityToast.tooltip"))
+                    .description(OptionDescription.of(Text.translatable("option.tpshud.showCompatibilityToast.tooltip")))
                     .binding(
                         true,
                         { ConfigManager.configOrException.showCompatibilityToast ?: true },
                         { ConfigManager.configOrException.showCompatibilityToast = it }
                     )
                     .controller { option ->
-                        BooleanController(
-                            option,
-                            BooleanController.YES_NO_FORMATTER,
-                            true
-                        )
+                        BooleanControllerBuilder.create(option).yesNoFormatter().coloured(true)
                     }.build()
             ))
         builder.categories(listOf(styleCategory.build(), networkingCategory.build()))

@@ -3,8 +3,8 @@ package me.obsilabor.tpshud.screen
 import me.obsilabor.tpshud.config.ConfigManager
 import me.obsilabor.tpshud.hud.TpsWidget
 import me.obsilabor.tpshud.minecraft
+import net.minecraft.client.gui.DrawContext
 import net.minecraft.client.gui.screen.Screen
-import net.minecraft.client.util.math.MatrixStack
 import net.minecraft.text.Text
 import org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_1
 
@@ -13,17 +13,17 @@ class PositionSelectionScreen(private val parent: Screen? = null) : Screen(Text.
     private var selectedRelX = 0
     private var selectedRelY = 0
 
-    override fun render(matrices: MatrixStack, mouseX: Int, mouseY: Int, tickDelta: Float) {
-        renderBackground(matrices)
+    override fun render(context: DrawContext, mouseX: Int, mouseY: Int, tickDelta: Float) {
+        renderBackground(context)
         val x = ConfigManager.config?.x ?: 0
         val y = ConfigManager.config?.y ?: 0
 
-        TpsWidget.render(matrices)
-        matrices.push()
-        matrices.scale(ConfigManager.config?.scale ?: 1.0F, ConfigManager.config?.scale ?: 1.0F, 0.0F)
-        drawRect(matrices, x - 1, y - 1, x + TpsWidget.width, y + textRenderer.fontHeight, -1)
-        matrices.pop()
-        super.render(matrices, mouseX, mouseY, tickDelta)
+        TpsWidget.render(context)
+        context.matrices.push()
+        context.matrices.scale(ConfigManager.config?.scale ?: 1.0F, ConfigManager.config?.scale ?: 1.0F, 0.0F)
+        drawRect(context, x - 1, y - 1, x + TpsWidget.width, y + textRenderer.fontHeight, -1)
+        context.matrices.pop()
+        super.render(context, mouseX, mouseY, tickDelta)
     }
 
     override fun mouseMoved(mouseX: Double, mouseY: Double) {
@@ -61,10 +61,10 @@ class PositionSelectionScreen(private val parent: Screen? = null) : Screen(Text.
         return super.mouseReleased(mouseX, mouseY, button)
     }
 
-    private fun drawRect(matrices: MatrixStack, x1: Int, y1: Int, x2: Int, y2: Int, color: Int) {
-        drawHorizontalLine(matrices, x1, x2, y1, color)
-        drawHorizontalLine(matrices, x1, x2, y2, color)
-        drawVerticalLine(matrices, x1, y1, y2, color)
-        drawVerticalLine(matrices, x2, y1, y2, color)
+    private fun drawRect(context: DrawContext, x1: Int, y1: Int, x2: Int, y2: Int, color: Int) {
+        context.drawHorizontalLine(x1, x2, y1, color)
+        context.drawHorizontalLine(x1, x2, y2, color)
+        context.drawVerticalLine(x1, y1, y2, color)
+        context.drawVerticalLine(x2, y1, y2, color)
     }
 }
