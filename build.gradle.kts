@@ -12,7 +12,7 @@ plugins {
 }
 
 group = "me.obsilabor"
-version = "1.6.5+1.20"
+version = "1.6.6+1.20.1"
 
 repositories {
     mavenCentral()
@@ -35,8 +35,8 @@ dependencies {
      */
     compileOnly("io.papermc.paper:paper-api:1.19.4-R0.1-SNAPSHOT")
     // fabric
-    minecraft("com.mojang:minecraft:1.20")
-    mappings("net.fabricmc:yarn:1.20+build.1")
+    minecraft("com.mojang:minecraft:1.20.1")
+    mappings("net.fabricmc:yarn:1.20.1+build.1")
     modImplementation("net.fabricmc:fabric-loader:0.14.21")
     modImplementation("net.fabricmc.fabric-api:fabric-api:0.83.0+1.20")
     modImplementation("net.fabricmc:fabric-language-kotlin:1.9.4+kotlin.1.8.21")
@@ -79,7 +79,7 @@ modrinth {
     projectId.set("tps-hud")
     versionNumber.set(project.version.toString())
     versionType.set("release")
-    gameVersions.addAll(listOf("1.20"))
+    gameVersions.addAll(listOf("1.20.1", "1.20"))
     loaders.add("fabric")
     loaders.add("quilt")
     loaders.add("purpur")
@@ -102,7 +102,7 @@ curseforge {
 
         id = "610618"
         releaseType = "release"
-        addGameVersion("1.20")
+        addGameVersion("1.20.1")
         addGameVersion("Fabric")
         addGameVersion("Quilt")
 
