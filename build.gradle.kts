@@ -3,16 +3,16 @@ import com.matthewprenger.cursegradle.CurseRelation
 import com.matthewprenger.cursegradle.Options
 
 plugins {
-    kotlin("jvm") version "1.8.21"
-    kotlin("plugin.serialization") version "1.8.21"
-    id("fabric-loom") version "1.2-SNAPSHOT"
+    kotlin("jvm") version "1.9.10"
+    kotlin("plugin.serialization") version "1.9.10"
+    id("fabric-loom") version "1.3-SNAPSHOT"
     id("com.modrinth.minotaur") version "2.+"
     id("com.matthewprenger.cursegradle") version "1.4.0"
     id("java")
 }
 
 group = "me.obsilabor"
-version = "1.6.6+1.20.1"
+version = "1.7.0+1.20.2"
 
 repositories {
     mavenCentral()
@@ -26,24 +26,24 @@ dependencies {
     // kotlin
     implementation(kotlin("stdlib"))
     // event system
-    implementation("me.obsilabor:alert:1.0.6")
-    include("me.obsilabor:alert:1.0.6")
+    implementation("me.obsilabor:alert:1.0.8")
+    include("me.obsilabor:alert:1.0.8")
     // paper
     /**
      * I'm not using userdev here because I think it would cause issues together with loom.
      * Additionally, I don't use any NMS specific functions or classes
      */
-    compileOnly("io.papermc.paper:paper-api:1.19.4-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.20.1-R0.1-SNAPSHOT")
     // fabric
-    minecraft("com.mojang:minecraft:1.20.1")
-    mappings("net.fabricmc:yarn:1.20.1+build.1")
-    modImplementation("net.fabricmc:fabric-loader:0.14.21")
-    modImplementation("net.fabricmc.fabric-api:fabric-api:0.83.0+1.20")
-    modImplementation("net.fabricmc:fabric-language-kotlin:1.9.4+kotlin.1.8.21")
+    minecraft("com.mojang:minecraft:1.20.2")
+    mappings("net.fabricmc:yarn:1.20.2+build.1")
+    modImplementation("net.fabricmc:fabric-loader:0.14.22")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:0.89.1+1.20.2")
+    modImplementation("net.fabricmc:fabric-language-kotlin:1.10.10+kotlin.1.9.10")
     // modmenu
     modApi("maven.modrinth:modmenu:7.0.0-beta.2")
     // yacl
-    modImplementation("dev.isxander.yacl:yet-another-config-lib-fabric:3.0.0-beta.7+1.20")
+    modImplementation("dev.isxander.yacl:yet-another-config-lib-fabric:3.1.1+1.20")
 }
 
 tasks {
@@ -79,7 +79,7 @@ modrinth {
     projectId.set("tps-hud")
     versionNumber.set(project.version.toString())
     versionType.set("release")
-    gameVersions.addAll(listOf("1.20.1", "1.20"))
+    gameVersions.addAll(listOf("1.20.2", "1.20.1", "1.20"))
     loaders.add("fabric")
     loaders.add("quilt")
     loaders.add("purpur")
@@ -102,7 +102,7 @@ curseforge {
 
         id = "610618"
         releaseType = "release"
-        addGameVersion("1.20.1")
+        addGameVersion("1.20.2")
         addGameVersion("Fabric")
         addGameVersion("Quilt")
 

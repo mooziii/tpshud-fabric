@@ -14,7 +14,7 @@ class PositionSelectionScreen(private val parent: Screen? = null) : Screen(Text.
     private var selectedRelY = 0
 
     override fun render(context: DrawContext, mouseX: Int, mouseY: Int, tickDelta: Float) {
-        renderBackground(context)
+        renderBackground(context, mouseX, mouseY, tickDelta)
         val x = ConfigManager.config?.x ?: 0
         val y = ConfigManager.config?.y ?: 0
 
