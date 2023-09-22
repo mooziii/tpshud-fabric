@@ -79,7 +79,7 @@ modrinth {
     projectId.set("tps-hud")
     versionNumber.set(project.version.toString())
     versionType.set("release")
-    gameVersions.addAll(listOf("1.20.2", "1.20.1", "1.20"))
+    gameVersions.addAll(listOf("1.20.2"))
     loaders.add("fabric")
     loaders.add("quilt")
     loaders.add("purpur")
