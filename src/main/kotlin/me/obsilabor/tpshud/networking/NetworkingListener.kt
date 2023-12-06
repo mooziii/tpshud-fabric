@@ -18,7 +18,7 @@ object NetworkingListener {
             } else {
                 minecraft.execute {
                     client.toastManager.add(SystemToast(
-                        SystemToast.Type.TUTORIAL_HINT,
+                        SystemToast.Type.NARRATOR_TOGGLE,
                         Text.translatable("screen.useServerProvidedData.title"),
                         Text.translatable("toast.useServerProvidedData.message")
                     ))

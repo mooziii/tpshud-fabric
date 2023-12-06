@@ -3,16 +3,16 @@ import com.matthewprenger.cursegradle.CurseRelation
 import com.matthewprenger.cursegradle.Options
 
 plugins {
-    kotlin("jvm") version "1.9.10"
-    kotlin("plugin.serialization") version "1.9.10"
-    id("fabric-loom") version "1.3-SNAPSHOT"
+    kotlin("jvm") version "1.9.21"
+    kotlin("plugin.serialization") version "1.9.21"
+    id("fabric-loom") version "1.4-SNAPSHOT"
     id("com.modrinth.minotaur") version "2.+"
     id("com.matthewprenger.cursegradle") version "1.4.0"
     id("java")
 }
 
 group = "me.obsilabor"
-version = "1.7.0+1.20.2"
+version = "1.7.0+1.20.3"
 
 repositories {
     mavenCentral()
@@ -35,15 +35,15 @@ dependencies {
      */
     compileOnly("io.papermc.paper:paper-api:1.20.1-R0.1-SNAPSHOT")
     // fabric
-    minecraft("com.mojang:minecraft:1.20.2")
-    mappings("net.fabricmc:yarn:1.20.2+build.1")
-    modImplementation("net.fabricmc:fabric-loader:0.14.22")
-    modImplementation("net.fabricmc.fabric-api:fabric-api:0.89.1+1.20.2")
-    modImplementation("net.fabricmc:fabric-language-kotlin:1.10.10+kotlin.1.9.10")
+    minecraft("com.mojang:minecraft:1.20.3")
+    mappings("net.fabricmc:yarn:1.20.3+build.1")
+    modImplementation("net.fabricmc:fabric-loader:0.15.0")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:0.91.1+1.20.3")
+    modImplementation("net.fabricmc:fabric-language-kotlin:1.10.16+kotlin.1.9.21")
     // modmenu
-    modApi("maven.modrinth:modmenu:7.0.0-beta.2")
+    modApi("maven.modrinth:modmenu:9.0.0-pre.1")
     // yacl
-    modImplementation("dev.isxander.yacl:yet-another-config-lib-fabric:3.1.1+1.20")
+    modImplementation("dev.isxander.yacl:yet-another-config-lib-fabric:3.3.0-beta.1+1.20.3")
 }
 
 tasks {
