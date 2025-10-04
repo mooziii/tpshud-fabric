@@ -30,29 +30,36 @@ object TpsWidget {
         context.drawText(minecraft.textRenderer, value, config.x+widthPartOne, config.y, config.valueTextColor, config.textShadow)
     }
 
-    // Return text and value, ready for rendering
     private fun getTextAndValue(): Pair<String, String> {
-        val config = ConfigManager.config ?: return Pair("TPS: ", "0.00")
+    val config = ConfigManager.config ?: return Pair("TPS: ", "0.00")
 
-        var (text, value) = if(config.displayModeTps) {
-            Pair("TPS: ", convertToTps(TpsTracker.INSTANCE.tickTime))
-        } else {
-            Pair("MSPT: ", TpsTracker.INSTANCE.tickTime)
-        }
-        // Override text if customText is set
-        if (!config.customText.isEmpty()) {
-            text = config.customText
-        }
-
-        // Limit value, either to an integer or to 2 decimal places
-        val valueStr = if (config.satisfyTpsCount) {
-            value.roundToInt().toString()
-        } else {
-            BigDecimal(value.toDouble()).setScale(2, RoundingMode.HALF_UP).toFloat().toString()
-        }
-
-        return Pair(text, valueStr)
+    val rawValue = TpsTracker.INSTANCE.tickTime
+    var (text, value) = if (config.displayModeTps) {
+        Pair("TPS: ", convertToTps(rawValue))
+    } else {
+        Pair("MSPT: ", rawValue)
     }
+
+    if (!config.customText.isEmpty()) {
+        text = config.customText
+    }
+
+    // Fallback in case of NaN or weird values
+    val safeValue = if (value.isNaN() || value.isInfinite()) {
+        0.0f
+    } else {
+        value
+    }
+
+    val valueStr = if (config.satisfyTpsCount) {
+        safeValue.roundToInt().toString()
+    } else {
+        BigDecimal(safeValue.toDouble()).setScale(2, RoundingMode.HALF_UP).toFloat().toString()
+    }
+
+    return Pair(text, valueStr)
+}
+
 
     private fun convertToTps(mspt: Float): Float {
         return kotlin.math.min(1000f / mspt, 20f);
