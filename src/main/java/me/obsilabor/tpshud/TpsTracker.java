@@ -1,16 +1,13 @@
 package me.obsilabor.tpshud;
 
-import me.obsilabor.alert.Subscribe;
 import me.obsilabor.tpshud.config.ConfigManager;
-import me.obsilabor.tpshud.event.GameJoinEvent;
-import me.obsilabor.tpshud.event.PacketReceiveEvent;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.network.packet.s2c.play.WorldTimeUpdateS2CPacket;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.protocol.game.ClientboundSetTimePacket;
 import java.util.Arrays;
 
 public class TpsTracker {
-
-    public static TpsTracker INSTANCE = new TpsTracker();
+    public static final TpsTracker INSTANCE = new TpsTracker();
 
     private final float[] tickTimesMilli = new float[20];
     private int nextIndex = 0;
@@ -19,21 +16,24 @@ public class TpsTracker {
 
     public float serverProvidedTps = -1;
 
-    @Subscribe
-    public void onPacketReceive(PacketReceiveEvent event) {
-        if (event.getPacket() instanceof WorldTimeUpdateS2CPacket) {
-            long now = System.currentTimeMillis();
-            long timeElapsed = now - timeLastTimeUpdate;
-
-            // Packet is sent 1 time per second, so divide per 20 to get MSPT
-            tickTimesMilli[nextIndex] = timeElapsed/20;
-            nextIndex = (nextIndex + 1) % tickTimesMilli.length;
-            timeLastTimeUpdate = now;
-        }
+    public static void init() {
+        // Register join event
+        ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
+            INSTANCE.onGameJoined();
+        });
     }
 
-    @Subscribe
-    public void onGameJoined(GameJoinEvent event) {
+    public void onPacketReceive(ClientboundSetTimePacket packet) {
+        long now = System.currentTimeMillis();
+        long timeElapsed = now - timeLastTimeUpdate;
+
+        // Packet is sent 1 time per second, so divide per 20 to get MSPT
+        tickTimesMilli[nextIndex] = timeElapsed / 20.0f;
+        nextIndex = (nextIndex + 1) % tickTimesMilli.length;
+        timeLastTimeUpdate = now;
+    }
+
+    public void onGameJoined() {
         serverProvidedTps = -1;
         Arrays.fill(tickTimesMilli, 0);
         nextIndex = 0;
@@ -43,11 +43,11 @@ public class TpsTracker {
     // Return milliseconds per tick (MSPT)
     public float getTickTime() {
         // get server side TPS if enabled and available
-        if (serverProvidedTps != -1 && ConfigManager.INSTANCE.getConfig().getUseServerProvidedData()) {
+        if (serverProvidedTps != -1 && ConfigManager.getConfig().useServerProvidedData) {
             return serverProvidedTps;
         }
 
-        MinecraftClient minecraft = MinecraftClient.getInstance();
+        Minecraft minecraft = Minecraft.getInstance();
         if (minecraft.player == null) return 0;
         if (System.currentTimeMillis() - timeGameJoined < 4000) return 20;
 
@@ -60,6 +60,6 @@ public class TpsTracker {
                 numTicks++;
             }
         }
-        return sumTickTimes / numTicks;
+        return numTicks > 0 ? sumTickTimes / numTicks : 20;
     }
 }
