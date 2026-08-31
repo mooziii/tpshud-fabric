@@ -52,7 +52,7 @@ tasks {
         onlyIf {
             System.getenv("CURSEFORGE_TOKEN") != null
         }
-        //dependsOn(remapJar)
+        dependsOn(build)
     }
     compileJava {
         options.encoding = "UTF-8"
@@ -84,13 +84,13 @@ modrinth {
         optional.project("yacl")
         optional.project("modmenu")
     }
-    //uploadFile.set(tasks.remapJar.get())
+    uploadFile.set(tasks.build.get())
 }
 
 curseforge {
     project(closureOf<CurseProject> {
         apiKey = System.getenv("CURSEFORGE_TOKEN")
-        //mainArtifact(tasks.remapJar.get())
+        mainArtifact(tasks.build.get())
 
         id = "610618"
         releaseType = "release"
